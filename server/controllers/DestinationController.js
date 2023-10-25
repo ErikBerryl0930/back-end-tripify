@@ -108,6 +108,57 @@ class DestinationController {
         }
     }
 
+    static async pagination(req, res) {
+        try {
+            const page = req.query.page || 1
+            const itemsPerPage = req.query.itemsPerPage || 10
+
+            const offset = (page - 1) * itemsPerPage
+            let destinations = await destination.finAndCountAll({
+                limit: itemsPerPage,
+                offset
+            })
+
+            res.status(200).json(destinations)
+        } catch (e) {
+            res.status(500).json({ message: e.message })
+        }
+    }
+
 }
 
 module.exports = DestinationController
+
+// contoh penggunaan ======= >
+
+// const Destinations = () => {
+//     const [destinations, setDestinations] = useState([]);
+//     const [page, setPage] = useState(1);
+//     const [itemsPerPage, setItemsPerPage] = useState(10);
+  
+//     useEffect(() => {
+//       const fetchData = async () => {
+//         try {
+//           const response = await fetch(`/destinations?page=${page}&itemsPerPage=${itemsPerPage}`);
+//           const data = await response.json();
+//           setDestinations(data.rows);
+//         } catch (error) {
+//           console.error('Error fetching data', error);
+//         }
+//       };
+  
+//       fetchData();
+//     }, [page, itemsPerPage]);
+  
+//     return (
+//       <div>
+//         <ul>
+//           {destinations.map(destination => (
+//             <li key={destination.id}>{destination.name}</li>
+//           ))}
+//         </ul>
+//         <button onClick={() => setPage(page - 1)}>Previous Page</button>
+//         <button onClick={() => setPage(page + 1)}>Next Page</button>
+//       </div>
+//     );
+//   };
