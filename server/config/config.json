@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "postgres",
-    "password": "Nau7583",
+    "password": "admin",
     "database": "tripify_app",
     "host": "127.0.0.1",
     "dialect": "postgres"
