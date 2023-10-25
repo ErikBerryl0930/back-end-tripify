@@ -1,0 +1,1 @@
+npx sequelize-cli model:generate --name user --attributes username:string,email:string,password:string
