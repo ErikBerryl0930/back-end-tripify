@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      destination.belongsToMany(models.users, { through: models.rating })
+      destination.belongsToMany(models.category, { through: models.destinationcategories })
     }
   }
   destination.init({
@@ -18,11 +20,11 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     region: DataTypes.STRING,
     city: DataTypes.STRING,
-    rating: DataTypes.INTEGER,
+    ratingId: DataTypes.INTEGER,
     transport_recomendation: DataTypes.STRING,
     picture: DataTypes.STRING,
     categoryId: DataTypes.INTEGER,
-    userId: DataTypes.STRING
+
   }, {
     sequelize,
     modelName: 'destination',

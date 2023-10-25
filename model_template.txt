@@ -1,1 +1,5 @@
 npx sequelize-cli model:generate --name user --attributes username:string,email:string,password:string
+
+npx sequelize-cli model:generate --name rating --attributes id:sinteger,userId:integer,destination:integer
+
+npx sequelize-cli model:generate --name destinationcategories --attributes id:string,userId:integer,categoryId:integer
