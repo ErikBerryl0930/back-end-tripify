@@ -1,4 +1,5 @@
-const { destination, rating, category, sequelize } = require('../models')
+const { stat } = require('fs')
+const { destination, rating, category, destinationcategories ,sequelize } = require('../models')
 
 class DestinationController {
 
@@ -34,19 +35,24 @@ class DestinationController {
     }
 
     static async addDestination(req, res) {
-        const isAdmin = req.userData.role
+        const categoryId = req.params.id
         const { destination_name, description, region, city, rating, transport_recomendation, picture } = req.body
         try {
-            if (isAdmin !== 'admin') return res.status(403).json({ message: 'Premission denied' })
-
-            await destination.create({
+            
+           let destiny = await destination.create({
                 destination_name,
                 description,
                 region,
                 city,
                 rating,
                 transport_recomendation,
-                picture
+                picture,
+                categoryId
+            })
+
+            await destinationcategories.create({
+                destinationId: destiny.id,
+                categoryId: categoryId
             })
 
             res.status(201).json({ message: 'destination successfully addeted' })
@@ -121,6 +127,34 @@ class DestinationController {
 
             res.status(200).json(destinations)
         } catch (e) {
+            res.status(500).json({ message: e.message })
+        }
+    }
+
+    static async editDestination(req, res){
+        try{
+
+            const { destination_name, description, region, city, rating, transport_recomendation, picture } = req.body
+            
+            const updated = await destination.update({
+                destination_name, 
+                description, 
+                region, 
+                city, 
+                rating, 
+                transport_recomendation, 
+                picture 
+            },{
+                where: {
+                    id: req.params.id
+                }
+            })
+
+            updated[0] === 1 ?
+            res.status(200).json({message: 'destination successfully updated'}):
+            res.status(404).json({message: 'destination not found'})
+
+        }catch(e){
             res.status(500).json({ message: e.message })
         }
     }
