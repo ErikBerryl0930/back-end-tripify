@@ -1,4 +1,6 @@
 const { users, profile } = require('../models')
+const { decryptPwd } = require('../helper/bcrypt')
+const { generateToken } = require('../helper/jsonwebtoken')
 class UserController {
 
     static async getAllUsers(req, res) {
@@ -24,8 +26,71 @@ class UserController {
     static async register(req, res) {
         try {
 
-        } catch (e) {
+            const {
+                username,
+                email,
+                password,
+                confPassword
+            } = req.body
 
+            if (password !== confPassword) return res.status(400).json({ message: 'please enter the right password' })
+
+            const exist = await users.findOne({
+                where: {
+                    email: email
+                }
+            })
+
+            if (exist) return res.status(400).json({ message: 'user already exist' })
+
+            const user = await users.create({
+                username,
+                email,
+                password
+            })
+
+            await profile.create({
+                userId: user.id
+            })
+
+            res.status(201).json({ message: 'user successfully created' })
+        } catch (e) {
+            res.status(500).json({ message: e.message })
+        }
+    }
+
+    static async login(req, res) {
+        try {
+            const { email, password } = req.body
+
+            let exist = await users.findOne({
+                where: {
+                    email: email
+                }
+            })
+
+            if (!exist) return res.status(404).json({ message: 'user not found' })
+
+            const match = decryptPwd(password, exist.password)
+            if (!match) return res.status(400).json({ message: 'please enter the right password' })
+
+            let userData = await profile.findOne({
+                where: {
+                    userId: exist.id
+                }
+            })
+
+            let data = {
+                ...exist.dataValues,
+                profile: userData.dataValues
+            }
+
+            const token = generateToken(data)
+
+            res.status(200).json(token)
+
+        } catch (e) {
+            res.status(500).json({ message: e.message })
         }
     }
 
@@ -91,10 +156,8 @@ class UserController {
 
     static async updateRoleUser(req, res) {
         try {
-            const admin = req.userData.role
             const id = req.params.id
             const role = req.body
-            if (admin !== 'admin') return res.status(403).json({ message: 'Premission denied' })
 
             const updated = await users.update({
                 role
@@ -106,8 +169,8 @@ class UserController {
 
 
             updated[0] === 1 ?
-            res.status(200).json({message: 'role has been updated'}):
-            res.status(404).json({message: 'user not found'})
+                res.status(200).json({ message: 'role has been updated' }) :
+                res.status(404).json({ message: 'user not found' })
 
         } catch (e) {
             res.status(500).json({ message: e.message })
