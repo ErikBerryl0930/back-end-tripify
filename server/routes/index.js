@@ -7,9 +7,11 @@ route.get('/api', (req, res) => {
 const userRoutes = require('./user')
 // const itemRoutes = require('./item')
 const destinyRoutes = require('./destination')
+const categoryRoutes = require('./category')
 
 route.use('/api/users', userRoutes)
 route.use('/api/destinations', destinyRoutes)
+route.use('/api/categories', categoryRoutes)
 // route.use('/api/items', itemRoutes)
 
 module.exports = route

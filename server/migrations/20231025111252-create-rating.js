@@ -9,16 +9,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id: {
-        type: Sequelize.INTEGER
-      },
+      // id: {
+      //   type: Sequelize.INTEGER
+      // },
       rate: {
         type: Sequelize.INTEGER
       },
       userId: {
         type: Sequelize.INTEGER
       },
-      destination: {
+      destinationId: {
         type: Sequelize.INTEGER
       },
       createdAt: {

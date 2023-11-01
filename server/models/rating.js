@@ -16,10 +16,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   rating.init({
-    id: DataTypes.INTEGER,
+    // id: DataTypes.INTEGER,
     rate: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
-    destination: DataTypes.INTEGER
+    destinationId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'rating',
