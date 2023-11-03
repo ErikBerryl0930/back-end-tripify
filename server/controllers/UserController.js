@@ -6,8 +6,8 @@ class UserController {
     static async getAllUsers(req, res) {
 
         try {
-            const role = req.userData.role
-            if (role !== "admin") return res.status(403).json({ message: 'Premission denied' })
+            // const role = req.userData.role
+            // if (role !== "admin") return res.status(403).json({ message: 'Premission denied' })
 
             let listUsers = await users.findAll({
                 include: [{
@@ -16,7 +16,10 @@ class UserController {
                 attributes: ['username', 'email']
             })
 
-            res.status(200).json(listUsers)
+            listUsers && listUsers.length === 0 ?
+                res.status(200).json({ message: "User is empty" }) :
+
+                res.status(200).json(listUsers)
 
         } catch (e) {
             res.status(500).json({ message: e.message })

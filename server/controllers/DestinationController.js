@@ -65,10 +65,11 @@ class DestinationController {
     static async rateDestination(req, res) {
         const userId = req.userData.id
         const id = req.params.id
-        const { rate } = req.body
+        const { rate, review } = req.body
         try {
             let success = await rating.create({
                 rate: rate,
+                review: review,
                 userId: userId,
                 destinationId: id
             })

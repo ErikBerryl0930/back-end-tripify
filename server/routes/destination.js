@@ -4,8 +4,8 @@ const DestinationController = require('../controllers/DestinationController')
 destinyRoute.get('/', DestinationController.getListDestination)
 destinyRoute.get('/information/:id', DestinationController.destinyInformation)
 destinyRoute.post('/add', DestinationController.addDestination)
-destinyRoute.patch('/edit')
-destinyRoute.delete('/remove', DestinationController.remove)
+destinyRoute.delete('/remove/:id', DestinationController.remove)
 destinyRoute.get('/recomendation', DestinationController.recomendation)
+destinyRoute.post('/review/:id', DestinationController.rateDestination)
 
 module.exports = destinyRoute

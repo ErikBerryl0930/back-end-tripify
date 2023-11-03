@@ -9,11 +9,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      // id: {
-      //   type: Sequelize.INTEGER
-      // },
       rate: {
         type: Sequelize.INTEGER
+      },
+      review: {
+        type: Sequelize.STRING
       },
       userId: {
         type: Sequelize.INTEGER
