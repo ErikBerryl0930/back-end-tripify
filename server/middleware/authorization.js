@@ -6,7 +6,7 @@ module.exports.authentication = (req, res, next) => {
 
     const token = authHeader.split(' ')[1]
     const decode = decodeToken(token)
-    res.userData = decode
+    req.userData = decode
     next()
 }
 
