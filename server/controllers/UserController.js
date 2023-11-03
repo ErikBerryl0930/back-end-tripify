@@ -151,7 +151,19 @@ class UserController {
     }
 
     static async getUserById(req, res) {
+        const id = req.params.id
+        try {
+            const result = await users.findOne({
+                where: {
+                    id
+                }
+            })
+            if (!result) return res.status(404).json({ message: 'please select correct user' })
 
+            res.status(200).json(result)
+        } catch (e) {
+            res.status(500).json({ message: e.message })
+        }
     }
 
     static async updateRoleUser(req, res) {

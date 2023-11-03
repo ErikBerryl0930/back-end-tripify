@@ -1,10 +1,12 @@
 const { stat } = require("fs");
-const { rating } = require("../models");
+const { rating, users, destination } = require("../models");
 
 class RatingController {
   static async getAllRatings(req, res) {
     try {
-      let ratings = await rating.findAll();
+      let ratings = await rating.findAll({
+        include: [users, destination]
+      });
       res.status(200).json(ratings);
     } catch (e) {
       res.status(500).json({ message: e.message });
@@ -20,7 +22,7 @@ class RatingController {
         userId,
         destinationId,
       });
-      res.status(200).json({ message: "rating has been added" });
+      res.status(201).json({ message: "rating has been added" });
     } catch (e) {
       res.status(500).json({ message: e.message });
     }
