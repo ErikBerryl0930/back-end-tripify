@@ -4,7 +4,9 @@ const { rating } = require("../models");
 class RatingController {
   static async getAllRatings(req, res) {
     try {
-      let ratings = await rating.findAll();
+      let ratings = await rating.findAll({
+        attributes: ['review']
+      });
       res.status(200).json(ratings);
     } catch (e) {
       res.status(500).json({ message: e.message });
