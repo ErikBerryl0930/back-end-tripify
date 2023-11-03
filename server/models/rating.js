@@ -11,12 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      rating.belongsTo(models.users, {
-        foreignKey: 'userId'
-      })
-      rating.belongsTo(models.destination, {
-        foreignKey: 'destinationId'
-      })
+      rating.belongsTo(models.users)
+      rating.belongsTo(models.destination)
     }
   }
   rating.init({
