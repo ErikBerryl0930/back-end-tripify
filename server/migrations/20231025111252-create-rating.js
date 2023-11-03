@@ -15,6 +15,9 @@ module.exports = {
       rate: {
         type: Sequelize.INTEGER
       },
+      review: {
+        type: Sequelize.STRING
+      },
       userId: {
         type: Sequelize.INTEGER
       },
