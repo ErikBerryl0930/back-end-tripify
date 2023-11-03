@@ -1,12 +1,17 @@
-const { stat } = require('fs')
-const { destination, rating, category, destinationcategories ,sequelize } = require('../models')
+const { destination, rating, category, destinationcategories,users ,sequelize } = require('../models')
 
 class DestinationController {
 
     static async getListDestination(req, res) {
         try {
-            let destinations = await destination.findAll({
-                include: [rating, category]
+            let destinations = await rating.findAll({
+                include: [
+                    {model: destination},
+                    {model: users},                    
+                ],
+                attributes: [
+                    [sequelize.fn('AVG', sequelize.col('rate')), 'averageRating']
+                  ]
             })
 
             res.status(200).json(destinations)
@@ -19,8 +24,8 @@ class DestinationController {
     static async destinyInformation(req, res) {
         const id = req.params.id
         try {
-            const destiny = await destination.findOne({
-                include: [rating, category]
+            const destiny = await rating.findOne({
+                include: [destination, category]
             }, {
                 where: {
                     id
@@ -36,15 +41,14 @@ class DestinationController {
 
     static async addDestination(req, res) {
         const categoryId = req.params.id
-        const { destination_name, description, region, city, rating, transport_recomendation, picture } = req.body
+        const { destination_name, description, region, city, transport_recomendation, picture } = req.body
         try {
             
            let destiny = await destination.create({
                 destination_name,
                 description,
                 region,
-                city,
-                rating,
+                city,                
                 transport_recomendation,
                 picture,
                 categoryId
@@ -65,10 +69,11 @@ class DestinationController {
     static async rateDestination(req, res) {
         const userId = req.userData.id
         const id = req.params.id
-        const { rate } = req.body
+        const { rate, review } = req.body
         try {
             let success = await rating.create({
                 rate: rate,
+                review: review,
                 userId: userId,
                 destinationId: id
             })
@@ -82,11 +87,12 @@ class DestinationController {
 
     static async recomendation(req, res) {
         try {
-            let destinations = await destination.findAll({
+            let destinations = await rating.findAll({
                 include: [{
-                    model: rating,
-                    attributes: [[sequelize.fn('AVG', sequelize.col(rate.value)), 'averageRating']],
+                    model: destinations,
+                    attributes: ['destination_name','description', 'region','transport_recomendation','picture'],
                 }],
+                attributes: [[sequelize.fn('AVG', sequelize.col('rating.rate')), 'averageRating']],
                 group: ['destination.id'],
                 order: [[sequelize.col('averageRating'), 'desc']]
             })

@@ -5,7 +5,7 @@ class RatingController {
   static async getAllRatings(req, res) {
     try {
       let ratings = await rating.findAll({
-        include: [users, destination]
+        attributes: ['review']
       });
       res.status(200).json(ratings);
     } catch (e) {

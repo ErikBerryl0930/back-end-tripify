@@ -16,7 +16,10 @@ class UserController {
                 attributes: ['username', 'email']
             })
 
-            res.status(200).json(listUsers)
+            listUsers && listUsers.length === 0 ?
+                res.status(200).json({ message: "User is empty" }) :
+
+                res.status(200).json(listUsers)
 
         } catch (e) {
             res.status(500).json({ message: e.message })
@@ -30,7 +33,8 @@ class UserController {
                 username,
                 email,
                 password,
-                confPassword
+                confPassword,
+                role
             } = req.body
 
             if (password !== confPassword) return res.status(400).json({ message: 'please enter the right password' })
@@ -46,7 +50,8 @@ class UserController {
             const user = await users.create({
                 username,
                 email,
-                password
+                password,
+                role
             })
 
             await profile.create({
@@ -87,7 +92,7 @@ class UserController {
 
             const token = generateToken(data)
 
-            res.status(200).json(token)
+            res.status(200).json({ token_secret: token })
 
         } catch (e) {
             res.status(500).json({ message: e.message })
@@ -129,7 +134,7 @@ class UserController {
 
     static async delete(req, res) {
         try {
-            const id = req.userData.id
+            const id = req.params.id
             let result = await users.destroy({
                 where: {
                     id
@@ -151,16 +156,15 @@ class UserController {
     }
 
     static async getUserById(req, res) {
-        const id = req.params.id
         try {
-            const result = await users.findOne({
-                where: {
-                    id
-                }
-            })
-            if (!result) return res.status(404).json({ message: 'please select correct user' })
 
-            res.status(200).json(result)
+            const id = req.userData.id
+            let user = await users.findByPk(id, {
+                include: [profile]
+            })
+
+            res.status(200).json(user)
+
         } catch (e) {
             res.status(500).json({ message: e.message })
         }
