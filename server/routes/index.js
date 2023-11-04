@@ -9,11 +9,13 @@ const userRoutes = require('./user')
 const destinyRoutes = require('./destination')
 const categoryRoutes = require('./category')
 const ratingRoutes = require('./rating')
+const transactionRoutes = require('./transaction')
 
 route.use('/api/users', userRoutes)
 route.use('/api/destinations', destinyRoutes)
 route.use('/api/categories', categoryRoutes)
 route.use('/api/ratings', ratingRoutes)
+route.use('/api/transactions', transactionRoutes)
 // route.use('/api/items', itemRoutes)
 
 module.exports = route
