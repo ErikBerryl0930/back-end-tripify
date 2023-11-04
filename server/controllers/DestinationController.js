@@ -11,7 +11,8 @@ class DestinationController {
                 ],
                 attributes: [
                     [sequelize.fn('AVG', sequelize.col('rate')), 'averageRating']
-                  ]
+                  ],
+                  group: ['destination.id','user.id'] 
             })
 
             res.status(200).json(destinations)
