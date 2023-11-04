@@ -4,7 +4,8 @@ class DestinationController {
 
     static async getListDestination(req, res) {
         try {
-            let destinations = await rating.findAll({
+            let destinations = {}
+             destinations = await rating.findAll({
                 include: [
                     {model: destination},
                     {model: users},                    
@@ -15,8 +16,12 @@ class DestinationController {
                   group: ['destination.id','user.id'] 
             })
 
-            res.status(200).json(destinations)
+            destinations && destinations.length > 0 ? 
+            res.status(200).json(destinations):
+            destinations = await destination.findAll()
 
+            res.status(200).json(destinations)
+            
         } catch (e) {
             res.status(500).json({ message: e.message })
         }
@@ -90,7 +95,7 @@ class DestinationController {
         try {
             let destinations = await rating.findAll({
                 include: [{
-                    model: destinations,
+                    model: destination,
                     attributes: ['destination_name','description', 'region','transport_recomendation','picture'],
                 }],
                 attributes: [[sequelize.fn('AVG', sequelize.col('rating.rate')), 'averageRating']],
