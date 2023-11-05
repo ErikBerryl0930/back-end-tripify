@@ -14,6 +14,8 @@ untuk authorization gunakan function pada mddleware
 userRoute.post('/role/:id', authentication, UserController.updateRoleUser)
 ```
 
+
+
 ## TASK DONE
 
 ### BE
@@ -35,3 +37,14 @@ userRoute.post('/role/:id', authentication, UserController.updateRoleUser)
 
 >[!IMPORTANT]
 >untuk push mohon push dalam bentuk biasa, tidak di zip
+
+>[!IMPORTANT]
+untuk proses push mohon di perhatika
+level push
+\dir-workspace\root-folder\server
+    .
+    ├── dir                   
+    ├── root (BACK-END-TRIPIFY)                    
+    ├── server                        
+    └── README.md
+ 
