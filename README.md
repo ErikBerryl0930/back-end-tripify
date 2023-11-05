@@ -17,8 +17,8 @@ git push origin (branch)
 - [ ] Categiries
   
 1. untuk authorization gunakan function pada mddleware
-   - ``` 
-    userRoute.post('/role/:id', authentication, UserController.updateRoleUser)
+   ```
+   userRoute.post('/role/:id', authentication, UserController.updateRoleUser)
    ```
 
 ### FE
