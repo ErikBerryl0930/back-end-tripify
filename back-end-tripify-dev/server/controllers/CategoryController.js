@@ -1,0 +1,67 @@
+const { category } = require("../models");
+
+class CategoryController {
+  static async getListCategory(req, res) {
+    try {
+      let categories = await category.findAll();
+
+      res.status(200).json(categories);
+    } catch (e) {
+      res.status(500).json({ message: e.message });
+    }
+  }
+
+  static async addCategory(req, res) {
+    const { category_name } = req.body;
+    try {
+      let categories = await category.create({
+        category_name,
+      });
+
+      res.status(201).json({ message: "category has been added" });
+    } catch (e) {
+      res.status(500).json({ message: e.message });
+    }
+  }
+
+  static async deleteCategory(req, res) {
+    const id = req.params.id;
+    try {
+      let result = await category.destroy({
+        where: {
+          id,
+        },
+      });
+
+      result === 1
+        ? res.status(200).json({ message: "category successfully removed" })
+        : res.status(404).json({ message: "category not found" });
+    } catch (e) {
+      res.status(500).json({ message: e.message });
+    }
+  }
+
+  static async editCategory(req, res){
+        try{
+
+            const { category_name } = req.body
+            
+            const updatedCategory = await category.update({
+                category_name, 
+            },{
+                where: {
+                    id: req.params.id
+                }
+            })
+
+            updatedCategory[0] === 1 ?
+            res.status(200).json({message: 'category successfully updated'}):
+            res.status(404).json({message: 'category not found'})
+
+        }catch(e){
+            res.status(500).json({ message: e.message })
+        }
+    }
+}
+
+module.exports = CategoryController;
