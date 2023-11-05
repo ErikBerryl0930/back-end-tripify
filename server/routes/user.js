@@ -5,7 +5,7 @@ userRoute.get('/', authentication, isAdmin, UserController.getAllUsers)
 userRoute.post('/', UserController.register)
 userRoute.post('/login', UserController.login)
 userRoute.patch('/update', authentication, UserController.update)
-userRoute.delete('/:id', UserController.delete)
+userRoute.delete('/:id', authentication, UserController.delete)
 userRoute.get('/account', authentication, UserController.getUserById)
 userRoute.post('/role/:id', authentication, UserController.updateRoleUser)
 module.exports = userRoute
