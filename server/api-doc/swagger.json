@@ -723,10 +723,26 @@
         "description": "",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "category_name": {
+                  "example": "cumi cumi"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -755,16 +771,48 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Status Created Categories Successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "category successfully Created"
+                }
+              }
+            }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Status Failed To Create",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "please login first"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Cannot Entered",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "Access denied"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -799,19 +847,59 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Status Edited Successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "category_name": {
+                  "example": "local"
+                }
+              }
+            }
           },
-          "401": {
-            "description": "Unauthorized"
+          "400": {
+            "description": "Status Failed To Edit",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "please insert right format for category name"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Cannot Edit",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "Access denied"
+                }
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Data Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "category not found"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -834,19 +922,59 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Deleted Successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "category successfully deleted"
+                }
+              }
+            }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Status Failed To Deleted ",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "category cannot be deleted"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Not Deleted",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "Access denied"
+                }
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Data Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "category not found"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "internal server error"
+                }
+              }
+            }
           }
         }
       }
