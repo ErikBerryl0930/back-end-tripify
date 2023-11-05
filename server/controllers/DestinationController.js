@@ -30,8 +30,8 @@ class DestinationController {
     static async destinyInformation(req, res) {
         const id = req.params.id
         try {
-            const destiny = await rating.findOne({
-                include: [destination, category]
+            const destiny = await destination.findOne({
+                include: [category],
             }, {
                 where: {
                     id
