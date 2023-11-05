@@ -15,6 +15,11 @@ git push origin (branch)
 - [ ] Login / Register
 - [ ] Description
 - [ ] Categiries
+  
+1. untuk authorization gunakan function pada mddleware
+   - ``` javascript
+    userRoute.post('/role/:id', authentication, UserController.updateRoleUser)
+   ```
 
 ### FE
 - [ ] Login/Register
