@@ -15,11 +15,7 @@ class DestinationController {
                   ],
                   group: ['destination.id','user.id'] 
             })
-
-            destinations && destinations.length > 0 ? 
-            res.status(200).json(destinations):
-            destinations = await destination.findAll()
-
+           
             res.status(200).json(destinations)
             
         } catch (e) {
