@@ -14,14 +14,13 @@ untuk authorization gunakan function pada mddleware
 userRoute.post('/role/:id', authentication, UserController.updateRoleUser)
 ```
 
-untuk proses push mohon di perhatika
-level push
-\dir-workspace\root-folder\server
-    .
-    ├── dir                   
-    ├── root (BACK-END-TRIPIFY)                    
-    ├── server                        
-    └── README.md
+
+### level push
+   .
+   ├── dir                   
+   ├── root (BACK-END-TRIPIFY)                    
+   ├── server                        
+   └── README.md
  
 
 ## TASK DONE
