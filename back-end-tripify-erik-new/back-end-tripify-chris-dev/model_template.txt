@@ -1,0 +1,7 @@
+npx sequelize-cli model:generate --name user --attributes username:string,email:string,password:string
+
+npx sequelize-cli model:generate --name rating --attributes id:integer,userId:integer,destination:integer
+
+npx sequelize-cli model:generate --name destinationcategories --attributes id:string,userId:integer,categoryId:integer
+
+npx sequelize-cli model:generate --name transaction --attributes date_checkin:date,qty_ticket:integer,total_price:integer,transaction_type:string,transaction_detail:string,invoice_number:integer,status:string,userId:integer,destinationId:integer

@@ -1,0 +1,11 @@
+const userRoute = require('express').Router()
+const UserController = require('../controllers/UserController')
+const { authentication, isAdmin } = require('../middleware/authorization')
+userRoute.get('/', authentication, isAdmin, UserController.getAllUsers)
+userRoute.post('/', UserController.register)
+userRoute.post('/login', UserController.login)
+userRoute.patch('/update', authentication, UserController.update)
+userRoute.delete('/:id', UserController.delete)
+userRoute.get('/account', authentication, UserController.getUserById)
+userRoute.post('/role/:id', authentication, UserController.updateRoleUser)
+module.exports = userRoute
