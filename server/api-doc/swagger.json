@@ -7,8 +7,28 @@
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "schemes": [
-    "http"
+  "schemes": ["http"],
+  "tags": [
+    {
+      "name": "Users",
+      "description": "CRUD API for Users"
+    },
+    {
+      "name": "Ratings",
+      "description": "CRUD API for Ratings"
+    },
+    {
+      "name": "Destinations",
+      "description": "CRUD API for Destinations"
+    },
+    {
+      "name": "Transactions",
+      "description": "CRUD API for Transactions"
+    },
+    {
+      "name": "Categories",
+      "description": "CRUD API for Categories"
+    }
   ],
   "paths": {
     "/api": {
@@ -23,6 +43,7 @@
     },
     "/api/users/": {
       "get": {
+        "tags": ["Users"],
         "description": "",
         "parameters": [
           {
@@ -111,6 +132,7 @@
         }
       },
       "post": {
+        "tags": ["Users"],
         "description": "",
         "parameters": [
           {
@@ -177,6 +199,7 @@
     },
     "/api/users/login": {
       "post": {
+        "tags": ["Users"],
         "description": "",
         "parameters": [
           {
@@ -245,6 +268,7 @@
     },
     "/api/users/update": {
       "patch": {
+        "tags": ["Users"],
         "description": "",
         "parameters": [
           {
@@ -322,6 +346,7 @@
     },
     "/api/users/{id}": {
       "delete": {
+        "tags": ["Users"],
         "description": "",
         "parameters": [
           {
@@ -386,6 +411,7 @@
     },
     "/api/users/account": {
       "get": {
+        "tags": ["Users"],
         "description": "",
         "parameters": [
           {
@@ -409,6 +435,7 @@
     },
     "/api/users/role/{id}": {
       "patch": {
+        "tags": ["Users"],
         "description": "",
         "parameters": [
           {
@@ -473,19 +500,65 @@
     },
     "/api/destinations/": {
       "get": {
+        "tags": ["Destinations"],
         "description": "",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "destination_name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "region": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "ratingId": {
+                    "type": "integer"
+                  },
+                  "transport_recomendation": {
+                    "type": "string"
+                  },
+                  "picture": {
+                    "type": "string"
+                  },
+                  "categoryId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "internal server error"
+                }
+              }
+            }
           }
         }
       }
     },
     "/api/destinations/information/{id}": {
       "get": {
+        "tags": ["Destinations"],
         "description": "",
         "parameters": [
           {
@@ -497,19 +570,84 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "destination_name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "region": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "ratingId": {
+                    "type": "integer"
+                  },
+                  "transport_recomendation": {
+                    "type": "string"
+                  },
+                  "picture": {
+                    "type": "string"
+                  },
+                  "categoryId": {
+                    "type": "integer"
+                  },
+                  "categories": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "category_name": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "not found"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "internal server error"
+                }
+              }
+            }
           }
         }
       }
     },
     "/api/destinations/add": {
       "post": {
+        "tags": ["Destinations"],
         "description": "",
         "parameters": [
           {
@@ -544,25 +682,69 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "destination successfully added"
+                }
+              }
+            }
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "please add image file"
+                }
+              }
+            }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "unauthorize"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Access denied"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "internal server error"
+                }
+              }
+            }
           }
         }
       }
     },
     "/api/destinations/edit/{id}": {
       "patch": {
+        "tags": ["Destinations"],
         "description": "",
         "parameters": [
           {
@@ -609,25 +791,70 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "destination successfully updated"
+                }
+              }
+            }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "unauthorize"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Access denied"
+                }
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "not found"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "internal server error"
+                }
+              }
+            }
           }
         }
       }
     },
     "/api/destinations/remove/{id}": {
       "delete": {
+        "tags": ["Destinations"],
         "description": "",
         "parameters": [
           {
@@ -644,38 +871,116 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "destination successfully removed"
+                }
+              }
+            }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "unauthorize"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Access denied"
+                }
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "not found"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "internal server error"
+                }
+              }
+            }
           }
         }
       }
     },
     "/api/destinations/recomendation": {
       "get": {
+        "tags": ["Destinations"],
         "description": "",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "destination_name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "region": {
+                    "type": "string"
+                  },
+                  "transport_recomendation": {
+                    "type": "string"
+                  },
+                  "picture": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "internal server error"
+                }
+              }
+            }
           }
         }
       }
     },
     "/api/destinations/review/{id}": {
       "post": {
+        "tags": ["Destinations"],
         "description": "",
         "parameters": [
           {
@@ -707,19 +1012,46 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "rate successfully added"
+                }
+              }
+            }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "unauthorize"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "internal server error"
+                }
+              }
+            }
           }
         }
       }
     },
     "/api/categories/": {
       "get": {
+        "tags": ["Categories"],
         "description": "",
         "responses": {
           "200": {
@@ -749,6 +1081,7 @@
     },
     "/api/categories/add": {
       "post": {
+        "tags": ["Categories"],
         "description": "",
         "parameters": [
           {
@@ -819,6 +1152,7 @@
     },
     "/api/categories/edit/{id}": {
       "patch": {
+        "tags": ["Categories"],
         "description": "",
         "parameters": [
           {
@@ -906,6 +1240,7 @@
     },
     "/api/categories/remove/{id}": {
       "delete": {
+        "tags": ["Categories"],
         "description": "",
         "parameters": [
           {
@@ -981,6 +1316,7 @@
     },
     "/api/ratings/": {
       "get": {
+        "tags": ["Ratings"],
         "description": "",
         "responses": {
           "200": {
@@ -1019,6 +1355,7 @@
     },
     "/api/ratings/edit/{id}": {
       "patch": {
+        "tags": ["Ratings"],
         "description": "",
         "parameters": [
           {
@@ -1064,6 +1401,7 @@
     },
     "/api/ratings/remove/{id}": {
       "delete": {
+        "tags": ["Ratings"],
         "description": "",
         "parameters": [
           {
@@ -1088,6 +1426,7 @@
     },
     "/api/transactions/": {
       "get": {
+        "tags": ["Transactions"],
         "description": "",
         "parameters": [
           {
@@ -1111,6 +1450,7 @@
     },
     "/api/transactions/add": {
       "post": {
+        "tags": ["Transactions"],
         "description": "",
         "parameters": [
           {
