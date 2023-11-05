@@ -13,21 +13,6 @@ class RatingController {
     }
   }
 
-  static async addRating(req, res) {
-    const { rate, review, userId, destinationId } = req.body;
-    try {
-      let ratings = await rating.create({
-        rate,
-        review,
-        userId,
-        destinationId,
-      });
-      res.status(201).json({ message: "rating has been added" });
-    } catch (e) {
-      res.status(500).json({ message: e.message });
-    }
-  }
-
   static async deleteRating(req, res) {
     const id = req.params.id;
     try {

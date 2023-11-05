@@ -47,16 +47,19 @@ class DestinationController {
 
     static async addDestination(req, res) {
         const categoryId = req.params.id
-        const { destination_name, description, region, city, transport_recomendation, picture } = req.body
+        const { destination_name, description, region, city, transport_recomendation} = req.body
+        if(!req.file) return res.status(400).json({message: 'Please add image file'})
         try {
             
+            const file_path = req.file.path
+
            let destiny = await destination.create({
                 destination_name,
                 description,
                 region,
                 city,                
                 transport_recomendation,
-                picture,
+                picture: file_path,
                 categoryId
             })
 
