@@ -8,6 +8,12 @@ git commit -m "initial commit"
 git push origin (branch)
 ```
 
+untuk authorization gunakan function pada mddleware
+   
+```js
+userRoute.post('/role/:id', authentication, UserController.updateRoleUser)
+```
+
 ## TASK DONE
 
 ### BE
@@ -15,11 +21,6 @@ git push origin (branch)
 - [ ] Login / Register
 - [ ] Description
 - [ ] Categiries
-  
-1. untuk authorization gunakan function pada mddleware
-   ```
-   userRoute.post('/role/:id', authentication, UserController.updateRoleUser)
-   ```
 
 ### FE
 - [ ] Login/Register
