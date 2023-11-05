@@ -9,7 +9,7 @@ const doc = {
 };
 
 
-const outputFile = './api-doc/swagger-output.json';
+const outputFile = './api-doc/swagger.json';
 const routes = ['./app.js'];
 
 

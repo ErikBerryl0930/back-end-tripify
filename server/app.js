@@ -3,7 +3,7 @@ const cors = require('cors')
 const app = express();
 const port = process.env.PORT || 3000;
 const swaggerUi = require('swagger-ui-express')
-const swaggerDocs = require('./api-doc/swagger-output.json')
+const swaggerDocs = require('./api-doc/swagger.json')
 require('dotenv').config()
 
 const doc = {
@@ -31,7 +31,7 @@ app.use(
             persistAuthorization: true,
             urls: [
                 {
-                    url: "/swagger/v1/swagger-output.json",
+                    url: "/swagger/v1/swagger.json",
                     name: "v1",
                 },
             ],
