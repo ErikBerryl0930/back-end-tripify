@@ -1,5 +1,5 @@
 const { users, profile } = require('../models')
-const { decryptPwd } = require('../helper/bcrypt')
+const { decryptPwd, encryptPwd } = require('../helper/bcrypt')
 const { generateToken } = require('../helper/jsonwebtoken')
 class UserController {
 
@@ -11,7 +11,8 @@ class UserController {
 
             let listUsers = await users.findAll({
                 include: [{
-                    model: profile
+                    model: profile,
+                    attributes: ['fullname', 'address', 'country', 'phone', 'profile_image']
                 }],
                 attributes: ['username', 'email']
             })
@@ -71,18 +72,21 @@ class UserController {
             let exist = await users.findOne({
                 where: {
                     email: email
-                }
+                },
+                attributes: ['username', 'email']
+
             })
 
             if (!exist) return res.status(404).json({ message: 'user not found' })
 
             const match = decryptPwd(password, exist.password)
-            if (!match) return res.status(400).json({ message: 'please enter the right password' })
+            if (!match) return res.status(400).json({ message: 'please enter the right email and password!' })
 
             let userData = await profile.findOne({
                 where: {
                     userId: exist.id
-                }
+                },
+                attributes: ['fullname', 'address', 'country', 'phone', 'profile_image']
             })
 
             let data = {
@@ -101,8 +105,10 @@ class UserController {
 
     static async update(req, res) {
         const id = req.userData.id
-        const { username, email, fullname, address, country, phone, profile_image } = req.body
+        const { username, email, fullname, address, country, phone } = req.body
         try {
+            if (!req.file) return res.status(400).json({ message: 'Please add image file' })
+            const file_path = req.file.path
 
             await users.update({
                 username,
@@ -118,7 +124,7 @@ class UserController {
                 address,
                 country,
                 phone,
-                profile_image
+                profile_image: file_path
             }, {
                 where: {
                     userId: id
@@ -134,7 +140,7 @@ class UserController {
 
     static async delete(req, res) {
         try {
-            const id = req.params.id
+            const id = req.userData.id
             let result = await users.destroy({
                 where: {
                     id
@@ -160,7 +166,12 @@ class UserController {
 
             const id = req.userData.id
             let user = await users.findByPk(id, {
-                include: [profile]
+                include: [
+                    {
+                        model: profile,
+                        attributes: ['fullname', 'address', 'country', 'phone', 'profile_image']
+                    }
+                ]
             })
 
             res.status(200).json(user)
@@ -183,10 +194,32 @@ class UserController {
                 }
             })
 
-
             updated[0] === 1 ?
                 res.status(200).json({ message: 'role has been updated' }) :
                 res.status(404).json({ message: 'user not found' })
+
+        } catch (e) {
+            res.status(500).json({ message: e.message })
+        }
+    }
+
+    static async changePassword(req, res) {
+        try {
+
+            const { oldPassword, newPassword, confNewPassword } = req.body
+            const match = decryptPwd(oldPassword, req.userData.password)
+            if (!match) return res.status(400).json({ message: 'please type the right old password' })
+
+            if (newPassword !== confNewPassword) return res.status(400).json({ message: 'new password and confirm new password is wrong' })
+
+            const hashNewPWD = encryptPwd(newPassword)
+            await users.update({
+                password: hashNewPWD,
+            }, {
+                where: {
+                    id: req.userData.id
+                }
+            })
 
         } catch (e) {
             res.status(500).json({ message: e.message })

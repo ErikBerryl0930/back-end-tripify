@@ -7,7 +7,9 @@
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "schemes": ["http"],
+  "schemes": [
+    "http"
+  ],
   "tags": [
     {
       "name": "Users",
@@ -43,7 +45,9 @@
     },
     "/api/users/": {
       "get": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -132,7 +136,9 @@
         }
       },
       "post": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -199,7 +205,9 @@
     },
     "/api/users/login": {
       "post": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -268,7 +276,9 @@
     },
     "/api/users/update": {
       "patch": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -346,7 +356,9 @@
     },
     "/api/users/{id}": {
       "delete": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -411,7 +423,9 @@
     },
     "/api/users/account": {
       "get": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -435,7 +449,9 @@
     },
     "/api/users/role/{id}": {
       "patch": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -500,7 +516,9 @@
     },
     "/api/destinations/": {
       "get": {
-        "tags": ["Destinations"],
+        "tags": [
+          "Destinations"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -558,7 +576,9 @@
     },
     "/api/destinations/information/{id}": {
       "get": {
-        "tags": ["Destinations"],
+        "tags": [
+          "Destinations"
+        ],
         "description": "",
         "parameters": [
           {
@@ -647,7 +667,9 @@
     },
     "/api/destinations/add": {
       "post": {
-        "tags": ["Destinations"],
+        "tags": [
+          "Destinations"
+        ],
         "description": "",
         "parameters": [
           {
@@ -744,7 +766,9 @@
     },
     "/api/destinations/edit/{id}": {
       "patch": {
-        "tags": ["Destinations"],
+        "tags": [
+          "Destinations"
+        ],
         "description": "",
         "parameters": [
           {
@@ -854,7 +878,9 @@
     },
     "/api/destinations/remove/{id}": {
       "delete": {
-        "tags": ["Destinations"],
+        "tags": [
+          "Destinations"
+        ],
         "description": "",
         "parameters": [
           {
@@ -934,7 +960,9 @@
     },
     "/api/destinations/recomendation": {
       "get": {
-        "tags": ["Destinations"],
+        "tags": [
+          "Destinations"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -957,7 +985,10 @@
                     "type": "string"
                   },
                   "picture": {
-                    "type": "string"
+                    "example": "file_name"
+                  },
+                  "rating": {
+                    "example": 5
                   }
                 }
               }
@@ -980,7 +1011,9 @@
     },
     "/api/destinations/review/{id}": {
       "post": {
-        "tags": ["Destinations"],
+        "tags": [
+          "Destinations"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1051,7 +1084,9 @@
     },
     "/api/categories/": {
       "get": {
-        "tags": ["Categories"],
+        "tags": [
+          "Categories"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -1081,7 +1116,9 @@
     },
     "/api/categories/add": {
       "post": {
-        "tags": ["Categories"],
+        "tags": [
+          "Categories"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1152,7 +1189,9 @@
     },
     "/api/categories/edit/{id}": {
       "patch": {
-        "tags": ["Categories"],
+        "tags": [
+          "Categories"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1240,7 +1279,9 @@
     },
     "/api/categories/remove/{id}": {
       "delete": {
-        "tags": ["Categories"],
+        "tags": [
+          "Categories"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1316,7 +1357,9 @@
     },
     "/api/ratings/": {
       "get": {
-        "tags": ["Ratings"],
+        "tags": [
+          "Ratings"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -1355,7 +1398,9 @@
     },
     "/api/ratings/edit/{id}": {
       "patch": {
-        "tags": ["Ratings"],
+        "tags": [
+          "Ratings"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1401,7 +1446,9 @@
     },
     "/api/ratings/remove/{id}": {
       "delete": {
-        "tags": ["Ratings"],
+        "tags": [
+          "Ratings"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1426,7 +1473,9 @@
     },
     "/api/transactions/": {
       "get": {
-        "tags": ["Transactions"],
+        "tags": [
+          "Transactions"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1450,7 +1499,9 @@
     },
     "/api/transactions/add": {
       "post": {
-        "tags": ["Transactions"],
+        "tags": [
+          "Transactions"
+        ],
         "description": "",
         "parameters": [
           {

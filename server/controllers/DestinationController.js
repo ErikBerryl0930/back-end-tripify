@@ -7,13 +7,12 @@ class DestinationController {
             let destinations = {}
              destinations = await rating.findAll({
                 include: [
-                    {model: destination},
-                    {model: users},                    
+                    {model: destination},                                     
                 ],
                 attributes: [
                     [sequelize.fn('AVG', sequelize.col('rate')), 'averageRating']
                   ],
-                  group: ['destination.id','user.id'] 
+                  group: ['destination.id'] 
             })
            
             res.status(200).json(destinations)
@@ -145,7 +144,10 @@ class DestinationController {
     static async editDestination(req, res){
         try{
 
-            const { destination_name, description, region, city, rating, transport_recomendation, picture } = req.body
+            const { destination_name, description, region, city, rating, transport_recomendation } = req.body
+            if(!req.file) return res.status(400).json({message: 'Please add image file'})
+
+            const file_upload = req.file.path
             
             const updated = await destination.update({
                 destination_name, 
@@ -154,7 +156,7 @@ class DestinationController {
                 city, 
                 rating, 
                 transport_recomendation, 
-                picture 
+                picture : file_upload
             },{
                 where: {
                     id: req.params.id
@@ -167,6 +169,31 @@ class DestinationController {
 
         }catch(e){
             res.status(500).json({ message: e.message })
+        }
+    }
+
+    static async userVisited(req, res){
+        try{
+
+            const visited = await rating.findAll({
+                include:[{
+                    model: destination,
+                    attributes:[]
+                }],
+                attributes: [
+                    'id',
+                    [sequelize.fn('COUNT', sequelize.fn('DISTINCT', sequelize.col('rating.userId'))), 'intenselyVisitedUsers'],
+                ],
+                group:['destination.id']
+            })
+
+            res.status(200).json({
+                status: 'success',
+                visited
+            })
+
+        }catch(e){
+            res.status(500).json({ message: e.message }) 
         }
     }
 
