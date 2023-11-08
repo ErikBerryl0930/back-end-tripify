@@ -1,21 +1,37 @@
-const { destination, rating, category, destinationcategories,users ,sequelize } = require('../models')
+const { destination, rating, category, destinationcategories,users ,sequelize } = require('../models');
+const { Op } = require("sequelize");
 
-class DestinationController {
+
+class DestinationController {  
 
     static async getListDestination(req, res) {
         try {
-            let destinations = {}
-             destinations = await rating.findAll({
+            
+            let destinationsWithRatings = await rating.findAll({
                 include: [
-                    {model: destination},                                     
+                    {
+                        model: destination,
+                        attributes: ['id','destination_name','description', 'region','city','transport_recomendation','picture','price'],
+                    },
                 ],
                 attributes: [
                     [sequelize.fn('AVG', sequelize.col('rate')), 'averageRating']
                   ],
                   group: ['destination.id'] 
-            })
+            })          
            
-            res.status(200).json(destinations)
+            const destinationsWithoutRatings = await destination.findAll({
+                where: {
+                    id: {
+                        [Op.notIn]: destinationsWithRatings.map(dest => dest.dataValues.destination.id)
+                    }
+                },
+                attributes: ['id', 'destination_name', 'description', 'region', 'city', 'transport_recomendation', 'picture', 'price']
+            });
+    
+            const allDestinations = [...destinationsWithRatings, ...destinationsWithoutRatings];
+
+            res.status(200).json(allDestinations)
             
         } catch (e) {
             res.status(500).json({ message: e.message })
@@ -30,8 +46,10 @@ class DestinationController {
             }, {
                 where: {
                     id
-                }
+                },
+                attributes: ['destination_name','description', 'region','city','transport_recomendation','picture','price'],
             })
+
             if (!destiny) return res.status(404).json({ message: 'please select correct destination' })
 
             res.status(200).json(destiny)
@@ -42,7 +60,7 @@ class DestinationController {
 
     static async addDestination(req, res) {
         const categoryId = req.params.id
-        const { destination_name, description, region, city, transport_recomendation} = req.body
+        const { destination_name, description, region, city,price, transport_recomendation} = req.body
         if(!req.file) return res.status(400).json({message: 'Please add image file'})
         try {
             
@@ -52,7 +70,8 @@ class DestinationController {
                 destination_name,
                 description,
                 region,
-                city,                
+                city,
+                price,                
                 transport_recomendation,
                 picture: file_path,
                 categoryId
@@ -63,7 +82,7 @@ class DestinationController {
                 categoryId: categoryId
             })
 
-            res.status(201).json({ message: 'destination successfully addeted' })
+            res.status(201).json({ success: true, message: 'destination successfully addeted' })
 
         } catch (e) {
             res.status(500).json({ message: e.message })
@@ -94,12 +113,12 @@ class DestinationController {
             let destinations = await rating.findAll({
                 include: [{
                     model: destination,
-                    attributes: ['destination_name','description', 'region','transport_recomendation','picture'],
+                   attributes: ['destination_name','description', 'region','city','transport_recomendation','picture','price'],
                 }],
-                attributes: [[sequelize.fn('AVG', sequelize.col('rating.rate')), 'averageRating']],
+                attributes: [[sequelize.fn('AVG', sequelize.col('rate')), 'averageRating']],
                 group: ['destination.id'],
                 order: [[sequelize.col('averageRating'), 'desc']]
-            })
+            })            
 
             res.status(200).json(destinations)
         } catch (e) {
@@ -144,7 +163,7 @@ class DestinationController {
     static async editDestination(req, res){
         try{
 
-            const { destination_name, description, region, city, rating, transport_recomendation } = req.body
+            const { destination_name, description, region, city,price, rating, transport_recomendation } = req.body
             if(!req.file) return res.status(400).json({message: 'Please add image file'})
 
             const file_upload = req.file.path
@@ -154,6 +173,7 @@ class DestinationController {
                 description, 
                 region, 
                 city, 
+                price,
                 rating, 
                 transport_recomendation, 
                 picture : file_upload

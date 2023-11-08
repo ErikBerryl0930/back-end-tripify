@@ -8,8 +8,10 @@ module.exports.authentication = (req, res, next) => {
     if (!authHeader) return res.status(401).json({ message: 'unauthorization' })
 
     const token = authHeader.split(' ')[1]
+
     const decode = decodeToken(token)
     req.userData = decode
+    console.log(req.userData.role)
     next()
 }
 

@@ -21,6 +21,9 @@ module.exports = {
       city: {
         type: Sequelize.STRING
       },
+      price: {
+        type: Sequelize.INTEGER
+      },
       ratingId: {
         type: Sequelize.INTEGER
       },

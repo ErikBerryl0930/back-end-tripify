@@ -3,7 +3,9 @@ const { category } = require("../models");
 class CategoryController {
   static async getListCategory(req, res) {
     try {
-      let categories = await category.findAll();
+      let categories = await category.findAll({
+        attributes: ['category_name']
+      });
 
       res.status(200).json(categories);
     } catch (e) {
@@ -14,6 +16,15 @@ class CategoryController {
   static async addCategory(req, res) {
     const { category_name } = req.body;
     try {
+
+      let found = await category.findOne({
+        where: {
+          category_name
+        }
+      })
+
+      if (found) return res.status(400).json({ success: false, message: 'category already exist' })
+
       let categories = await category.create({
         category_name,
       });
@@ -41,27 +52,27 @@ class CategoryController {
     }
   }
 
-  static async editCategory(req, res){
-        try{
+  static async editCategory(req, res) {
+    try {
 
-            const { category_name } = req.body
-            
-            const updatedCategory = await category.update({
-                category_name, 
-            },{
-                where: {
-                    id: req.params.id
-                }
-            })
+      const { category_name } = req.body
 
-            updatedCategory[0] === 1 ?
-            res.status(200).json({message: 'category successfully updated'}):
-            res.status(404).json({message: 'category not found'})
-
-        }catch(e){
-            res.status(500).json({ message: e.message })
+      const updatedCategory = await category.update({
+        category_name,
+      }, {
+        where: {
+          id: req.params.id
         }
+      })
+
+      updatedCategory[0] === 1 ?
+        res.status(200).json({ message: 'category successfully updated' }) :
+        res.status(404).json({ message: 'category not found' })
+
+    } catch (e) {
+      res.status(500).json({ message: e.message })
     }
+  }
 }
 
 module.exports = CategoryController;

@@ -10,17 +10,12 @@ class UserController {
             if (role !== "admin") return res.status(403).json({ message: 'Premission denied' })
 
             let listUsers = await users.findAll({
-                include: [{
-                    model: profile,
-                    attributes: ['fullname', 'address', 'country', 'phone', 'profile_image']
-                }],
                 attributes: ['username', 'email']
             })
 
             listUsers && listUsers.length === 0 ?
-                res.status(200).json({ message: "User is empty" }) :
-
-                res.status(200).json(listUsers)
+                res.status(200).json({ success: true, message: "User is empty" }) :
+                res.status(200).json({ success: true, listUsers })
 
         } catch (e) {
             res.status(500).json({ message: e.message })
@@ -59,7 +54,7 @@ class UserController {
                 userId: user.id
             })
 
-            res.status(201).json({ message: 'user successfully created' })
+            res.status(201).json({ success: true, message: 'user successfully created' })
         } catch (e) {
             res.status(500).json({ message: e.message })
         }
@@ -73,13 +68,13 @@ class UserController {
                 where: {
                     email: email
                 },
-                attributes: ['username', 'email']
+                attributes: ['id', 'username', 'email', 'role', 'password'],
 
             })
 
             if (!exist) return res.status(404).json({ message: 'user not found' })
 
-            const match = decryptPwd(password, exist.password)
+            const match = decryptPwd(password, exist.dataValues.password)
             if (!match) return res.status(400).json({ message: 'please enter the right email and password!' })
 
             let userData = await profile.findOne({
@@ -94,9 +89,11 @@ class UserController {
                 profile: userData.dataValues
             }
 
+            console.log(data.username)
+
             const token = generateToken(data)
 
-            res.status(200).json({ token_secret: token })
+            res.status(200).json({ success: true, barier_token: token })
 
         } catch (e) {
             res.status(500).json({ message: e.message })
@@ -109,6 +106,7 @@ class UserController {
         try {
             if (!req.file) return res.status(400).json({ message: 'Please add image file' })
             const file_path = req.file.path
+
 
             await users.update({
                 username,
@@ -131,7 +129,7 @@ class UserController {
                 }
             })
 
-            res.status(200).json({ message: 'user successfully updated' })
+            res.status(200).json({ success: true, message: 'user successfully updated' })
 
         } catch (e) {
             res.status(500).json({ message: e.message })
@@ -154,7 +152,7 @@ class UserController {
             })
 
             result === 1 ?
-                res.status(200).json({ message: 'user successfully deleted' }) :
+                res.status(200).json({ success: true, message: 'user successfully deleted' }) :
                 res.status(404).json({ message: 'user not found' })
         } catch (e) {
             res.status(500).json({ message: e.message })
@@ -166,6 +164,7 @@ class UserController {
 
             const id = req.userData.id
             let user = await users.findByPk(id, {
+                attributes: ['username', 'email', 'password', 'role'],
                 include: [
                     {
                         model: profile,
@@ -174,7 +173,7 @@ class UserController {
                 ]
             })
 
-            res.status(200).json(user)
+            res.status(200).json({ success: true, user })
 
         } catch (e) {
             res.status(500).json({ message: e.message })
@@ -195,7 +194,7 @@ class UserController {
             })
 
             updated[0] === 1 ?
-                res.status(200).json({ message: 'role has been updated' }) :
+                res.status(200).json({ success: true, message: 'role has been updated' }) :
                 res.status(404).json({ message: 'user not found' })
 
         } catch (e) {
@@ -220,6 +219,8 @@ class UserController {
                     id: req.userData.id
                 }
             })
+
+            res.status(200).json({ success: true, message: 'password already changed' })
 
         } catch (e) {
             res.status(500).json({ message: e.message })
