@@ -164,10 +164,17 @@ class DestinationController {
         try{
 
             const { destination_name, description, region, city,price, rating, transport_recomendation } = req.body
-            if(!req.file) return res.status(400).json({message: 'Please add image file'})
-
-            const file_upload = req.file.path
+            // if(!req.file) return res.status(400).json({message: 'Please add image file'})
             
+            const getDestination = await destination.findByPk(req.params.id) 
+            
+            let file_upload = ""
+            if (!req.file) {
+                file_upload = getDestination.dataValues.picture
+            }else{
+                file_upload = req.file.path
+            }
+
             const updated = await destination.update({
                 destination_name, 
                 description, 
