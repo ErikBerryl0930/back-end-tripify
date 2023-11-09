@@ -8,7 +8,9 @@ class TransactionController {
       let transactions = await transaction.findAll({
         where: {
           id: req.userData.id
-        }
+        },
+        attributes: ['date_checkin', 'invoice_number']
+
       });
 
       res.status(200).json(transactions);
@@ -54,9 +56,9 @@ class TransactionController {
 
     let parameter = {
       "transaction_details": {
-        "order_id": invoice_number,
-        "gross_amount": total_price,
-        "date_checkin": date_checkin,
+        "order_id": "ORDER-123",
+        "gross_amount": 5000
+
       },
       "item_details": [{
         "id": destinationDetails.dataValues.id,
@@ -104,24 +106,17 @@ class TransactionController {
 
 
     try {
-      let transaction = await snap.createTransaction({
-        parameter
-      });
+      let transactionCrete = await snap.createTransaction(parameter);
 
       await transaction.create({
         date_checkin,
         qty_ticket,
-        total_price,
-        transaction_type,
-        transaction_detail,
         invoice_number,
         userId: req.userData.id,
         destinationId: destinationDetails.id,
       })
 
-      res.status(201).json({
-        transaction
-      });
+      res.status(201).json({ success: true, transactionCrete });
     } catch (e) {
       res.status(500).json({ message: e.message });
     }

@@ -15,19 +15,10 @@ module.exports = {
       qty_ticket: {
         type: Sequelize.INTEGER
       },
-      total_price: {
-        type: Sequelize.INTEGER
-      },
       transaction_type: {
         type: Sequelize.STRING
       },
-      transaction_detail: {
-        type: Sequelize.STRING
-      },
       invoice_number: {
-        type: Sequelize.INTEGER
-      },
-      status: {
         type: Sequelize.STRING
       },
       userId: {

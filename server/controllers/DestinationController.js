@@ -45,10 +45,11 @@ class DestinationController {
                 include: [category],
             }, {
                 where: {
-                    id
+                    id,
                 },
                 attributes: ['destination_name','description', 'region','city','transport_recomendation','picture','price'],
-            })
+            }
+            )
 
             if (!destiny) return res.status(404).json({ message: 'please select correct destination' })
 
@@ -162,11 +163,17 @@ class DestinationController {
 
     static async editDestination(req, res){
         try{
+            const { destination_name, description, region, city, price, rating, transport_recomendation } = req.body
 
-            const { destination_name, description, region, city,price, rating, transport_recomendation } = req.body
-            if(!req.file) return res.status(400).json({message: 'Please add image file'})
+            let dest = await destination.findByPk(req.params.id)
 
-            const file_upload = req.file.path
+            let file_upload = ""
+            if(!req.file) {
+                file_upload = dest.dataValues.picture
+            }else{
+                file_upload = req.file.path
+            }
+
             
             const updated = await destination.update({
                 destination_name, 
