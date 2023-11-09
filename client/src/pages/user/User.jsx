@@ -1,10 +1,11 @@
-import "./datatable.scss";
+import "./user.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows } from "../../datatablesource";
+import { userColumns, userRows } from "./usersource";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { Navbar, Sidebar } from "../../components";
 
-const Datatable = () => {
+const User = () => {
   const [data, setData] = useState(userRows);
 
   const handleDelete = (id) => {
@@ -34,23 +35,26 @@ const Datatable = () => {
     },
   ];
   return (
-    <div className="datatable">
-      {/* <div className="datatableTitle">
-        Add New User
-        <Link to="/users/new" className="link">
-          Add New
-        </Link>
-      </div> */}
-      <DataGrid
-        className="datagrid"
-        rows={data}
-        columns={userColumns.concat(actionColumn)}
-        pageSize={9}
-        rowsPerPageOptions={[9]}
-        checkboxSelection
-      />
+    <div className="list">
+      <Sidebar />
+      <div className="listContainer">
+        <Navbar />
+        <div className="datatable">
+          <div className="datatableTitle">
+            User
+          </div>
+          <DataGrid
+            className="datagrid"
+            rows={data}
+            columns={userColumns.concat(actionColumn)}
+            pageSize={9}
+            rowsPerPageOptions={[9]}
+            // checkboxSelection
+          />
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Datatable;
+export default User;

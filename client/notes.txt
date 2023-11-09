@@ -1,0 +1,4 @@
+Dashboard: jumlah user, destination, transaction, visitor
+list destination (recommended)
+sidebar: users, destinations, categories, transaction
+profile: setting profile (change name, password, dll)
