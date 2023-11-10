@@ -46,7 +46,7 @@ const Category = () => {
         <div className="datatable">
           <div className="datatableTitle">
             Category
-            <Link to="/categories/new" className="link">
+            <Link to="/categories/add" className="link">
               Add Category
             </Link>
           </div>

@@ -34,19 +34,30 @@ const AddDestination = ({ inputs, title }) => {
               </div>
               <div className="formInput">
                 <label>Description</label>
-                <input type="text" placeholder="Enter destination name" />
+                <input type="text" placeholder="Enter description" />
               </div>
               <div className="formInput">
-                <label>Region</label>
-                <input type="text" placeholder="Enter destination name" />
+                <label>Choose Region</label>
+                <select class="select">
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
               </div>
               <div className="formInput">
-                <label>City</label>
-                <input type="text" placeholder="Enter destination name" />
+                <label>Choose City</label>
+                <select class="select">
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
               </div>
               <div className="formInput">
                 <label>Transport Recommendation</label>
-                <input type="text" placeholder="Enter transport recommendation" />
+                <input
+                  type="text"
+                  placeholder="Enter transport recommendation"
+                />
               </div>
               <div className="formInput">
                 <label htmlFor="file">
@@ -80,11 +91,3 @@ const AddDestination = ({ inputs, title }) => {
 };
 
 export default AddDestination;
-// destination_name,
-// description,
-// region,
-// city,
-// price,                
-// transport_recomendation,
-// picture: file_path,
-// categoryId
