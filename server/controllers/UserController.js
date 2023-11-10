@@ -77,23 +77,13 @@ class UserController {
             const match = decryptPwd(password, exist.dataValues.password)
             if (!match) return res.status(400).json({ message: 'please enter the right email and password!' })
 
-            let userData = await profile.findOne({
-                where: {
-                    userId: exist.id
-                },
-                attributes: ['fullname', 'address', 'country', 'phone', 'profile_image']
-            })
-
-            let data = {
-                ...exist.dataValues,
-                profile: userData.dataValues
+            let user = {
+                ...exist.dataValues
             }
 
-            console.log(data.username)
+            const token = generateToken(user)
 
-            const token = generateToken(data)
-
-            res.status(200).json({ success: true, barier_token: token })
+            res.status(200).json({ success: true, barier_token: token, user: user, })
 
         } catch (e) {
             res.status(500).json({ message: e.message })
