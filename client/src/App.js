@@ -6,7 +6,6 @@ import { DarkModeContext } from "./context/darkModeContext";
 import {
   Destination,
   Home,
-  List,
   Single,
   Login,
   New,

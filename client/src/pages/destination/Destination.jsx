@@ -1,12 +1,12 @@
 import "./destination.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows } from "./destinationsource";
+import { destinationColumns, destinationRows } from "./destinationsource";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Navbar, Sidebar } from "../../components";
 
 const Destination = () => {
-  const [data, setData] = useState(userRows);
+  const [data, setData] = useState(destinationRows);
 
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
@@ -46,14 +46,16 @@ const Destination = () => {
               Add Destination
             </Link>
           </div>
-          <DataGrid
-            className="datagrid"
-            rows={data}
-            columns={userColumns.concat(actionColumn)}
-            pageSize={9}
-            rowsPerPageOptions={[9]}
-            // checkboxSelection
-          />
+          <div style={{ height: "100%", width: "100%" }}>
+            <DataGrid
+              className="datagrid"
+              rows={data}
+              columns={destinationColumns.concat(actionColumn)}
+              pageSize={9}
+              rowsPerPageOptions={[9]}
+              // checkboxSelection
+            />
+          </div>
         </div>
       </div>
     </div>

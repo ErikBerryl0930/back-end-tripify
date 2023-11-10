@@ -1,10 +1,11 @@
 import "./widget.scss";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+// import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 // import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 
 const Widget = ({ type }) => {
   let data;
@@ -59,13 +60,13 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-    case "balance":
+    case "review":
       data = {
-        title: "BALANCE",
+        title: "REVIEWS",
         isMoney: true,
         link: "See details",
         icon: (
-          <AccountBalanceWalletOutlinedIcon
+          <ChatOutlinedIcon
             className="icon"
             style={{
               backgroundColor: "rgba(128, 0, 128, 0.2)",
