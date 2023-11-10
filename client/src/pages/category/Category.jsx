@@ -4,6 +4,8 @@ import { userColumns, userRows } from "./categorysource";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Navbar, Sidebar } from "../../components";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Category = () => {
   const [data, setData] = useState(userRows);
@@ -20,14 +22,16 @@ const Category = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
-              <div className="viewButton">View</div>
+            <Link to="/destinations/detail" style={{ textDecoration: "none" }}>
+              <div className="editButton">
+                <EditIcon />
+              </div>
             </Link>
             <div
               className="deleteButton"
               onClick={() => handleDelete(params.row.id)}
             >
-              Delete
+              <DeleteIcon />
             </div>
           </div>
         );

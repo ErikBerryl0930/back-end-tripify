@@ -4,6 +4,9 @@ import { destinationColumns, destinationRows } from "./destinationsource";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Navbar, Sidebar } from "../../components";
+import InfoIcon from "@mui/icons-material/Info";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Destination = () => {
   const [data, setData] = useState(destinationRows);
@@ -20,14 +23,24 @@ const Destination = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
-              <div className="viewButton">View</div>
+            <Link
+              to="/destinations/:destinationId"
+              style={{ textDecoration: "none" }}
+            >
+              <div className="viewButton">
+                <InfoIcon />
+              </div>
+            </Link>
+            <Link to="/destinations/detail" style={{ textDecoration: "none" }}>
+              <div className="editButton">
+                <EditIcon />
+              </div>
             </Link>
             <div
               className="deleteButton"
               onClick={() => handleDelete(params.row.id)}
             >
-              Delete
+              <DeleteIcon />
             </div>
           </div>
         );
@@ -42,7 +55,7 @@ const Destination = () => {
         <div className="datatable">
           <div className="datatableTitle">
             Destination
-            <Link to="/destinations/new" className="link">
+            <Link to="/destinations/add" className="link">
               Add Destination
             </Link>
           </div>
@@ -53,7 +66,6 @@ const Destination = () => {
               columns={destinationColumns.concat(actionColumn)}
               pageSize={9}
               rowsPerPageOptions={[9]}
-              // checkboxSelection
             />
           </div>
         </div>

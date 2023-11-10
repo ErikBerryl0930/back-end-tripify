@@ -6,12 +6,13 @@ import { DarkModeContext } from "./context/darkModeContext";
 import {
   Destination,
   Home,
-  Single,
   Login,
   New,
   Transaction,
   Category,
   User,
+  DestinationDetail,
+  AddDestination,
 } from "./pages";
 
 function App() {
@@ -19,14 +20,13 @@ function App() {
 
   return (
     <div className={darkMode ? "app dark" : "app"}>
-      {/* <BrowserRouter> */}
       <Routes>
         <Route path="/">
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="users">
             <Route index element={<User />} />
-            <Route path=":userId" element={<Single />} />
+            {/* <Route path=":userId" element={<Single />} /> */}
             <Route
               path="new"
               element={<New inputs={userInputs} title="Add New User" />}
@@ -34,15 +34,15 @@ function App() {
           </Route>
           <Route path="destinations">
             <Route index element={<Destination />} />
-            <Route path=":productId" element={<Single />} />
+            <Route path=":destinationId" element={<DestinationDetail />} />
             <Route
-              path="new"
-              element={<New inputs={productInputs} title="Add New Product" />}
+              path="add"
+              element={<AddDestination />}
+              // element={<New inputs={productInputs} title="Add New Destination" />}
             />
           </Route>
           <Route path="transactions">
             <Route index element={<Transaction />} />
-            <Route path=":productId" element={<Single />} />
             <Route
               path="new"
               element={<New inputs={productInputs} title="Add New Product" />}
@@ -50,7 +50,6 @@ function App() {
           </Route>
           <Route path="categories">
             <Route index element={<Category />} />
-            <Route path=":productId" element={<Single />} />
             <Route
               path="new"
               element={<New inputs={productInputs} title="Add New Product" />}
@@ -58,7 +57,6 @@ function App() {
           </Route>
         </Route>
       </Routes>
-      {/* </BrowserRouter> */}
     </div>
   );
 }
