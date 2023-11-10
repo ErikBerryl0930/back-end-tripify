@@ -13,7 +13,7 @@ const authSlice = createSlice({
             state.isLogin = true
         },
         setLogout(state) {
-            localStorage.clear
+            localStorage.clear()
             state.isLogin = false
         },
         setLoading(state, action) {
@@ -30,7 +30,7 @@ export const {
     setLoading,
     setError,
     setLogin,
-    setLogout
+    setLogout,
 } = authSlice.actions
 
 export default authSlice.reducer

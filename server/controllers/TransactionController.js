@@ -48,6 +48,8 @@ class TransactionController {
       ]
     })
 
+    qty_ticket === 0 ? 1 : qty_ticket
+
     const total_price = qty_ticket * destinationDetails.dataValues.price
     console.log(destinationDetails.dataValues.price)
 
@@ -57,7 +59,7 @@ class TransactionController {
     let parameter = {
       "transaction_details": {
         "order_id": "ORDER-123",
-        "gross_amount": 5000
+        "gross_amount": total_price
 
       },
       "item_details": [{

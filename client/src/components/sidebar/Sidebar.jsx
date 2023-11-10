@@ -4,19 +4,29 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import StoreIcon from "@mui/icons-material/Store";
-// import InsertChartIcon from "@mui/icons-material/InsertChart";
+
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-// import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-// import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
-// import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
+
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
+import {useNavigate} from "react-router-dom"
+import {useDispatch,useSelector} from "react-redux"
+import { setLogout } from "../../features/authSlice";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
+
+  const dispatchLogout = useDispatch()
+  const navigate = useNavigate()
+
+  const logout = () => {
+    dispatchLogout(setLogout())
+    navigate("/login")
+  }
+
   return (
     <div className="sidebar">
       <div className="top">
@@ -88,7 +98,7 @@ const Sidebar = () => {
           </li>
           <li>
             <ExitToAppIcon className="icon" />
-            <span>Logout</span>
+            <span><button onClick={logout}>Logout</button></span>
           </li>
         </ul>
       </div>
