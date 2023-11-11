@@ -58,7 +58,7 @@ class TransactionController {
 
     let parameter = {
       "transaction_details": {
-        "order_id": "ORDER-132",
+        "order_id": invoice_number,
         "gross_amount": total_price
 
       },

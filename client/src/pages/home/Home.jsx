@@ -29,7 +29,7 @@ const Home = () => {
               <Widget type="user" />
               <Widget type="order" />
               <Widget type="earning" />
-              <Widget type="balance" />
+              <Widget type="review" />
             </div>
             <div className="charts">
               <Featured />

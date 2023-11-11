@@ -7,16 +7,29 @@ import { Navbar, Sidebar } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getUsers } from "../../api/user.fetch";
 
 const User = () => {
-  const [data, setData] = useState(userRows);
+  const [data, setData] = useState([]);
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
-  };
+  // const handleDelete = (id) => {
+  //   setData(data.filter((item) => item.id !== id));
+  // };
 
   const { isLogin } = useSelector((state) => state.auth);
+  const { users } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  console.log(users);
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setData(users);
+  }, [users]);
 
   useEffect(() => {
     if (!isLogin) {
@@ -35,12 +48,12 @@ const User = () => {
             <Link to="/users/test" style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
-            <div
+            {/* <div
               className="deleteButton"
               onClick={() => handleDelete(params.row.id)}
             >
               Delete
-            </div>
+            </div> */}
           </div>
         );
       },

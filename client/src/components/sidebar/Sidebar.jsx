@@ -12,20 +12,20 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
-import {useNavigate} from "react-router-dom"
-import {useDispatch,useSelector} from "react-redux"
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "../../features/authSlice";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
 
-  const dispatchLogout = useDispatch()
-  const navigate = useNavigate()
+  const dispatchLogout = useDispatch();
+  const navigate = useNavigate();
 
   const logout = () => {
-    dispatchLogout(setLogout())
-    navigate("/login")
-  }
+    dispatchLogout(setLogout());
+    navigate("/login");
+  };
 
   return (
     <div className="sidebar">
@@ -92,13 +92,17 @@ const Sidebar = () => {
             <span>Settings</span>
           </li>
           <p className="title">USER</p>
-          <li>
-            <AccountCircleOutlinedIcon className="icon" />
-            <span>Profile</span>
-          </li>
+          <Link to="/">
+            <li>
+              <AccountCircleOutlinedIcon className="icon" />
+              <span>Profile</span>
+            </li>
+          </Link>
           <li>
             <ExitToAppIcon className="icon" />
-            <span><button onClick={logout}>Logout</button></span>
+            <span>
+              <button onClick={logout}>Logout</button>
+            </span>
           </li>
         </ul>
       </div>

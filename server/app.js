@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors')
 const app = express();
+const path = require('path');
 const port = process.env.PORT || 3000;
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocs = require('./api-doc/swagger.json')
@@ -17,6 +18,8 @@ const doc = {
 app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/images', express.static(path.join(__dirname, 'image')));
 
 const routes = require('./routes')
 app.use(routes)

@@ -63,6 +63,7 @@ class DestinationController {
         const categoryId = req.params.id
         const { destination_name, description, region, city,price, transport_recomendation} = req.body
         if(!req.file) return res.status(400).json({message: 'Please add image file'})
+        const imagePath = `/images/${req.file.filename}`;
         try {
             
             const file_path = req.file.path
@@ -74,7 +75,7 @@ class DestinationController {
                 city,
                 price,                
                 transport_recomendation,
-                picture: file_path,
+                picture: imagePath,
                 categoryId
             })
 
@@ -167,11 +168,13 @@ class DestinationController {
 
             let dest = await destination.findByPk(req.params.id)
 
+            const imagePath = `/images/${req.file.filename}`;
+
             let file_upload = ""
             if(!req.file) {
                 file_upload = dest.dataValues.picture
             }else{
-                file_upload = req.file.path
+                file_upload = `/images/${req.file.filename}`
             }
 
             

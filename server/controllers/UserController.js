@@ -10,12 +10,24 @@ class UserController {
             if (role !== "admin") return res.status(403).json({ message: 'Premission denied' })
 
             let listUsers = await users.findAll({
-                attributes: ['username', 'email']
+                attributes: ['username', 'email',],
+                include: [{
+                    model: profile,
+                    attributes: ['fullname', 'profile_image']
+                }]
             })
 
-            listUsers && listUsers.length === 0 ?
-                res.status(200).json({ success: true, message: "User is empty" }) :
-                res.status(200).json({ success: true, listUsers })
+            let Users = listUsers.map((user, index) => ({
+                id: index + 1,
+                fullname: user.profile.fullname,
+                username: user.username,
+                email: user.email,
+                profile_image: user.profile.profile_image
+            }))
+
+            console.log(Users)
+
+            res.status(200).json({ success: true, users: Users })
 
         } catch (e) {
             res.status(500).json({ message: e.message })
@@ -95,7 +107,7 @@ class UserController {
         const { username, email, fullname, address, country, phone } = req.body
         try {
             if (!req.file) return res.status(400).json({ message: 'Please add image file' })
-            const file_path = req.file.path
+            const imagePath = `/images/${req.file.filename}`;
 
 
             await users.update({
@@ -112,7 +124,7 @@ class UserController {
                 address,
                 country,
                 phone,
-                profile_image: file_path
+                profile_image: imagePath
             }, {
                 where: {
                     userId: id
