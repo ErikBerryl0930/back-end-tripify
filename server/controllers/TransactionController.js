@@ -3,13 +3,13 @@ const { generateTransactionID } = require('../helper/transaction.generator')
 const { snap } = require('../helper/snapApi')
 
 class TransactionController {
-  static async getListTransactions(req, res) {
+  static async getListTransactionsByUser(req, res) {
     try {
       let transactions = await transaction.findAll({
         where: {
           id: req.userData.id
         },
-        attributes: ['date_checkin', 'invoice_number']
+        attributes: ['date_checkin', 'invoice_number', 'qty_ticket']
 
       });
 
@@ -19,6 +19,24 @@ class TransactionController {
     }
   }
 
+  static async getListTransactions(req, res) {
+    try {
+      let transactions = await transaction.findAll({
+        attributes: ['date_checkin', 'invoice_number', 'qty_ticket']
+      });
+
+      let listTrans = transactions.map((trans, index) => ({
+        id: index + 1,
+        ...trans.get()
+      }))
+
+      // console.log(listTrans)
+
+      res.status(200).json({ success: true, transactions: listTrans });
+    } catch (e) {
+      res.status(500).json({ message: e.message });
+    }
+  }
 
 
   static addTransaction = async (req, res) => {

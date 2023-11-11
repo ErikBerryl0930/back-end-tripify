@@ -1,15 +1,33 @@
 import "./transaction.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { userColumns, userRows } from "./transactionsource";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navbar, Sidebar } from "../../components";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getTrans } from "../../api/transaction.fetch";
 
 const Transaction = () => {
-  const [data, setData] = useState(userRows);
+  const [data, setData] = useState([]);
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
-  };
+  const { isLogin } = useSelector((state) => state.auth);
+  const { transactions } = useSelector((state) => state.transaction);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTrans());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setData(transactions);
+  }, [transactions]);
+
+  useEffect(() => {
+    if (!isLogin) {
+      navigate("/login");
+    }
+  }, [isLogin, navigate]);
 
   return (
     <div className="list">
@@ -17,9 +35,7 @@ const Transaction = () => {
       <div className="listContainer">
         <Navbar />
         <div className="datatable">
-          <div className="datatableTitle">
-            Transaction
-          </div>
+          <div className="datatableTitle">Transaction</div>
           <DataGrid
             className="datagrid"
             rows={data}

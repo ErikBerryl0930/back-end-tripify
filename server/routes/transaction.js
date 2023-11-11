@@ -1,8 +1,9 @@
 const transactionRoute = require("express").Router();
 const TransactionController = require("../controllers/TransactionController");
-const { authentication } = require('../middleware/authorization')
+const { authentication, isAdmin } = require('../middleware/authorization')
 
-transactionRoute.get("/", authentication, TransactionController.getListTransactions);
+transactionRoute.get("/all", authentication, isAdmin, TransactionController.getListTransactions)
+transactionRoute.get("/", authentication, TransactionController.getListTransactionsByUser);
 transactionRoute.post("/add/:id", authentication, TransactionController.addTransaction);
 
 module.exports = transactionRoute;
