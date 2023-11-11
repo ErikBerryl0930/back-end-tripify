@@ -166,15 +166,13 @@ class DestinationController {
         try{
             const { destination_name, description, region, city, price, rating, transport_recomendation } = req.body
 
-            let dest = await destination.findByPk(req.params.id)
-
-            const imagePath = `/images/${req.file.filename}`;
+            let dest = await destination.findByPk(req.params.id)            
 
             let file_upload = ""
             if(!req.file) {
                 file_upload = dest.dataValues.picture
             }else{
-                file_upload = `/images/${req.file.filename}`
+                file_upload = `http://localhost:3000/images/${req.file.filename}`
             }
 
             

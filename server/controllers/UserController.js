@@ -25,8 +25,6 @@ class UserController {
                 profile_image: user.profile.profile_image
             }))
 
-            console.log(Users)
-
             res.status(200).json({ success: true, users: Users })
 
         } catch (e) {
@@ -107,7 +105,7 @@ class UserController {
         const { username, email, fullname, address, country, phone } = req.body
         try {
             if (!req.file) return res.status(400).json({ message: 'Please add image file' })
-            const imagePath = `/images/${req.file.filename}`;
+            const imagePath = `http://localhost:3000/images/${req.file.filename}`;
 
 
             await users.update({
