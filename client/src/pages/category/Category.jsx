@@ -1,14 +1,37 @@
 import "./category.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows } from "./categorysource";
+import { categoryColumns } from "./categorysource";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navbar, Sidebar } from "../../components";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategories } from "../../api/category.fetch";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const Category = () => {
-  const [data, setData] = useState(userRows);
+  const [data, setData] = useState([]);
+
+  const { isLogin } = useSelector((state) => state.auth);
+  const { categories } = useSelector((state) => state.category);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setData(categories);
+  }, [categories]);
+  console.log(categories)
+
+  useEffect(() => {
+    if (!isLogin) {
+      navigate("/login");
+    }
+  }, [isLogin, navigate]);
 
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
@@ -22,7 +45,7 @@ const Category = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/destinations/detail" style={{ textDecoration: "none" }}>
+            <Link to="/categories/detail" style={{ textDecoration: "none" }}>
               <div className="editButton">
                 <EditIcon />
               </div>
@@ -53,10 +76,9 @@ const Category = () => {
           <DataGrid
             className="datagrid"
             rows={data}
-            columns={userColumns.concat(actionColumn)}
+            columns={categoryColumns.concat(actionColumn)}
             pageSize={9}
             rowsPerPageOptions={[9]}
-            // checkboxSelection
           />
         </div>
       </div>

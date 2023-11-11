@@ -1,4 +1,4 @@
-export const userColumns = [
+export const categoryColumns = [
   { field: "id", headerName: "ID", width: 70 },
   {
     field: "category_name",
@@ -8,9 +8,9 @@ export const userColumns = [
 ];
 
 //temporary data
-export const userRows = [
-  {
-    id: 1,
-    category_name: "Local",
-  },
-];
+// export const userRows = [
+//   {
+//     id: 1,
+//     category_name: "Local",
+//   },
+// ];

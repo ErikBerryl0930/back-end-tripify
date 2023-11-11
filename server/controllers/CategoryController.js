@@ -3,9 +3,14 @@ const { category } = require("../models");
 class CategoryController {
   static async getListCategory(req, res) {
     try {
-      let categories = await category.findAll({
+      let listCategories = await category.findAll({
         attributes: ['category_name']
       });
+
+      let categories = listCategories.map((category, index) => ({
+        id: index + 1,
+        category_name: category.category_name
+      }))
 
       res.status(200).json(categories);
     } catch (e) {
