@@ -1,8 +1,8 @@
 .datatable {
-  height: 600px;
+  height: "100%";
   padding: 20px;
-  
-  .datatableTitle{
+
+  .datatableTitle {
     width: 100%;
     font-size: 24px;
     font-weight: bold;
@@ -12,7 +12,7 @@
     align-items: center;
     justify-content: space-between;
 
-    .link{
+    .link {
       text-decoration: none;
       color: green;
       font-size: 14px;
@@ -24,16 +24,16 @@
     }
   }
 
-  .cellWithImg {
+  .cellWithImgDes {
     display: flex;
     align-items: center;
 
-    .cellImg {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
+    .cellImgDes {
+      width: 150px;
+      height: 75px;
       object-fit: cover;
       margin-right: 20px;
+      background-color: green;
     }
   }
 
@@ -67,7 +67,15 @@
       border: 1px dotted rgba(0, 0, 139, 0.596);
       cursor: pointer;
     }
-    
+
+    .editButton {
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: orange;
+      border: 1px dotted rgba(104, 84, 4, 0.596);
+      cursor: pointer;
+    }
+
     .deleteButton {
       padding: 2px 5px;
       border-radius: 5px;
