@@ -4,6 +4,9 @@ import { userColumns, userRows } from "./destinationsource";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Navbar, Sidebar } from "../../components";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Destination = () => {
   const [data, setData] = useState(userRows);
@@ -11,6 +14,15 @@ const Destination = () => {
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
   };
+
+  const { isLogin } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLogin) {
+      navigate("/login");
+    }
+  }, [isLogin, navigate]);
 
   const actionColumn = [
     {
