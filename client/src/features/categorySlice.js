@@ -5,6 +5,7 @@ const categorySlice = createSlice({
   initialState: {
     categories: [],
     loading: false,
+
     error: false,
   },
   reducers: {
@@ -15,6 +16,7 @@ const categorySlice = createSlice({
     setLoading(state, action) {
       state.loading = action.payload;
     },
+
     setError(state, action) {
       state.error = action.payload;
       state.loading = false;

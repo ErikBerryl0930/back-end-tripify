@@ -1,10 +1,25 @@
 import "./addcategory.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-// import { useState } from "react";
+import { useEffect, useState } from "react";
+import { addCategory } from "../../api/category.fetch";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 
-const AddCategory = ({ inputs, title }) => {
-  // const [file, setFile] = useState("");
+
+
+const AddCategory = () => {
+  const [category_name, setName] = useState("")
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  console.log(category_name)
+
+  const save = (e) => {
+    e.preventDefault()
+    dispatch(addCategory(category_name))
+  }
 
   return (
     <div className="new">
@@ -15,23 +30,18 @@ const AddCategory = ({ inputs, title }) => {
           <h1>Add New Category</h1>
         </div>
         <div className="bottom">
-          {/* <div className="left">
-            <img
-              src={
-                file
-                  ? URL.createObjectURL(file)
-                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-              }
-              alt=""
-            />
-          </div> */}
           <div className="right">
             <form>
               <div className="formInput">
                 <label>Category</label>
-                <input type="text" placeholder="Enter category name" />
+                <input
+                  onChange={(e) => setName({ category_name: e.target.value })}
+                  type="text"
+                  placeholder="Enter category name" />
               </div>
-              <button>Send</button>
+              <button
+                onClick={save}
+              >Add</button>
             </form>
           </div>
         </div>
