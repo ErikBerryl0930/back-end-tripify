@@ -12,7 +12,6 @@ export const getCategories = () => {
         url: BASE_URL,
       });
 
-      console.log(response.data);
       dispatch(setCategory(response.data));
     } catch (error) {
       console.log(error);
@@ -21,3 +20,66 @@ export const getCategories = () => {
     }
   };
 };
+
+export const addCategory = (form) => {
+  return async (dispatch) => {
+    dispatch(setLoading(false))
+    try {
+
+      let response = await instanceAxios({
+        method: "POST",
+        url: BASE_URL + "/add",
+        data: form
+      })
+
+      console.log(response.data)
+
+    } catch (error) {
+      console.log(error)
+      dispatch(setError(error.response.data.message))
+      dispatch(setLoading(false))
+    }
+  }
+}
+
+export const editCategory = (id, form) => {
+  return async (dispatch) => {
+    dispatch(setLoading(false))
+    try {
+
+      let response = await instanceAxios({
+        method: "PATCH",
+        url: BASE_URL + "/edit" + id,
+        data: form
+      })
+
+      console.log(response.data)
+
+    } catch (error) {
+      console.log(error)
+      dispatch(setError(error.response.data.message))
+      dispatch(setLoading(false))
+    }
+  }
+}
+
+export const removeCategory = (id) => {
+  return async (dispatch) => {
+    dispatch(setLoading(false))
+    try {
+
+      let response = await instanceAxios({
+        method: "DELETE",
+        url: BASE_URL + "/remove" + id,
+
+      })
+
+      console.log(response.data)
+
+    } catch (error) {
+      console.log(error)
+      dispatch(setError(error.response.data.message))
+      dispatch(setLoading(false))
+    }
+  }
+}
