@@ -5,8 +5,14 @@ import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUpload
 import { useState } from "react";
 
 const AddDestination = ({ inputs, title }) => {
-  const [file, setFile] = useState("");
-
+  const [Name, setName] = useState("");
+  const [Region, setRegion] = useState("");
+  const [City, setCity] = useState("");
+  const [Transport_rekomendation, setTransport_rekomendation] = useState("");
+  const [Picture, setPicture] = useState("");
+  const [Price, setPrice] = useState("");
+  const [file, setfile] = useState("");
+ 
   return (
     <div className="new">
       <Sidebar />
@@ -34,27 +40,27 @@ const AddDestination = ({ inputs, title }) => {
               </div>
               <div className="formInput">
                 <label>Description</label>
-                <input type="text" placeholder="Enter description" />
+                <input onChange={(e) => setName({ destination_name: e.target.value })} type="text" placeholder="Enter description" />
               </div>
               <div className="formInput">
                 <label>Choose Region</label>
                 <select class="select">
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option onChange={(e) => setRegion({ region: e.target.value })} value="1">One</option>
+                  <option  onChange={(e) => setRegion({ region: e.target.value })} value="2">Two</option>
+                  <option onChange={(e) => setRegion({ region: e.target.value })} value="3">Three</option>
                 </select>
               </div>
               <div className="formInput">
                 <label>Choose City</label>
                 <select class="select">
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option onChange={(e) => setCity({ city: e.target.value })} value="1">One</option>
+                  <option onChange={(e) => setCity({ city: e.target.value })} value="2">Two</option>
+                  <option onChange={(e) => setCity({ city: e.target.value })} value="3">Three</option>
                 </select>
               </div>
               <div className="formInput">
                 <label>Transport Recommendation</label>
-                <input
+                <input onChange={(e) => setTransport_rekomendation({ transport_recomendation: e.target.value })}
                   type="text"
                   placeholder="Enter transport recommendation"
                 />
@@ -63,16 +69,15 @@ const AddDestination = ({ inputs, title }) => {
                 <label htmlFor="file">
                   Image: <DriveFolderUploadOutlinedIcon className="icon" />
                 </label>
-                <input
+                <input onChange={(e) => setPicture({ picture: e.target.value })}
                   type="file"
                   id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
                   style={{ display: "none" }}
                 />
               </div>
               <div className="formInput">
                 <label>Price</label>
-                <input type="number" placeholder="Enter price" />
+                <input onChange={(e) => setPrice({ price: e.target.value })}type="number" placeholder="Enter price" />
               </div>
 
               {/* {inputs.map((input) => (
