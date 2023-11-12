@@ -3,16 +3,28 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import {getAddDestinations} from "../../api/Destination";
+
 
 const AddDestination = ({ inputs, title }) => {
-  const [Name, setName] = useState("");
-  const [Region, setRegion] = useState("");
-  const [City, setCity] = useState("");
-  const [Transport_rekomendation, setTransport_rekomendation] = useState("");
-  const [Picture, setPicture] = useState("");
-  const [Price, setPrice] = useState("");
-  const [file, setfile] = useState("");
+  const dispatch = useDispatch ();
+  const [destination_name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  
  
+  const [region, setRegion] = useState("");
+  const [city, setCity] = useState("");
+  const [transport_recomendation, setTransport_recomendation] = useState("");
+  const [picture, setPicture] = useState("");
+  const [price, setPrice] = useState("");
+  const [file, setfile] = useState("");
+  const save = (e) => {
+    e.preventDefault()
+    dispatch(getAddDestinations({destination_name,description,region,city,transport_recomendation,picture,price}))
+    
+
+  }
   return (
     <div className="new">
       <Sidebar />
@@ -36,31 +48,24 @@ const AddDestination = ({ inputs, title }) => {
             <form>
               <div className="formInput">
                 <label>Destination</label>
-                <input type="text" placeholder="Enter destination name" />
+                <input onChange={(e) => setName({ destination_name: e.target.value })} type="text" placeholder="Enter destination name" />
               </div>
               <div className="formInput">
                 <label>Description</label>
-                <input onChange={(e) => setName({ destination_name: e.target.value })} type="text" placeholder="Enter description" />
+                <input onChange={(e) => setDescription({ description: e.target.value })} type="text" placeholder="Enter description" />
               </div>
               <div className="formInput">
-                <label>Choose Region</label>
-                <select class="select">
-                  <option onChange={(e) => setRegion({ region: e.target.value })} value="1">One</option>
-                  <option  onChange={(e) => setRegion({ region: e.target.value })} value="2">Two</option>
-                  <option onChange={(e) => setRegion({ region: e.target.value })} value="3">Three</option>
-                </select>
+                <label>Region</label>
+                <input onChange={(e) => setRegion({ region: e.target.value })} type="text" placeholder="Enter description" />
               </div>
               <div className="formInput">
-                <label>Choose City</label>
-                <select class="select">
-                  <option onChange={(e) => setCity({ city: e.target.value })} value="1">One</option>
-                  <option onChange={(e) => setCity({ city: e.target.value })} value="2">Two</option>
-                  <option onChange={(e) => setCity({ city: e.target.value })} value="3">Three</option>
-                </select>
+                <label>City</label>
+                <input onChange={(e) => setCity({ city: e.target.value })} type="text" placeholder="Enter description" />
               </div>
+             
               <div className="formInput">
                 <label>Transport Recommendation</label>
-                <input onChange={(e) => setTransport_rekomendation({ transport_recomendation: e.target.value })}
+                <input onChange={(e) => setTransport_recomendation({ transport_recomendation: e.target.value })}
                   type="text"
                   placeholder="Enter transport recommendation"
                 />
@@ -86,7 +91,9 @@ const AddDestination = ({ inputs, title }) => {
                   <input type={input.type} placeholder={input.placeholder} />
                 </div>
               ))} */}
-              <button>Send</button>
+               <button
+                onClick={save}
+              >Add</button>
             </form>
           </div>
         </div>
