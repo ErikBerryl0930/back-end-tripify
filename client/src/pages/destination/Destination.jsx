@@ -10,9 +10,10 @@ import { useNavigate } from "react-router-dom";
 import InfoIcon from "@mui/icons-material/Info";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { getDestinations } from "../../api/fetch";
 
 const Destination = () => {
-  const [data, setData] = useState(destinationRows);
+  const [data, setData] = useState([]);
 
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
@@ -20,6 +21,17 @@ const Destination = () => {
 
   const { isLogin } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const { destinations } = useSelector((state) => state.destination);
+
+  useEffect(() => {
+    dispatch(getDestinations());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setData(destinations);
+  }, [destinations]);
 
   useEffect(() => {
     if (!isLogin) {
