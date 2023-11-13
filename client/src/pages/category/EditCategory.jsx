@@ -2,24 +2,22 @@ import "./categoryform.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { useEffect, useState } from "react";
-import { addCategory } from "../../api/category.fetch";
+import { editCategory } from "../../api/category.fetch";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 
+const EditCategory = () => {
+  const [category_name, setName] = useState("");
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-const AddCategory = () => {
-  const [category_name, setName] = useState("")
-
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-
-  console.log(category_name)
+  console.log(category_name);
 
   const save = (e) => {
-    e.preventDefault()
-    dispatch(addCategory(category_name))
-  }
+    e.preventDefault();
+    dispatch(editCategory(category_name));
+  };
 
   return (
     <div className="new">
@@ -27,7 +25,7 @@ const AddCategory = () => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>Add New Category</h1>
+          <h1>Edit Category</h1>
         </div>
         <div className="bottom">
           <div className="right">
@@ -35,13 +33,13 @@ const AddCategory = () => {
               <div className="formInput">
                 <label>Category</label>
                 <input
+                  value={category_name}
                   onChange={(e) => setName({ category_name: e.target.value })}
                   type="text"
-                  placeholder="Enter category name" />
+                  placeholder="Enter category name"
+                />
               </div>
-              <button
-                onClick={save}
-              >Add</button>
+              <button onClick={save}>Save</button>
             </form>
           </div>
         </div>
@@ -50,4 +48,4 @@ const AddCategory = () => {
   );
 };
 
-export default AddCategory;
+export default EditCategory;

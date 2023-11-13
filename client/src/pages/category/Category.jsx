@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { Navbar, Sidebar } from "../../components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategories } from "../../api/category.fetch";
+import { getCategories, removeCategory } from "../../api/category.fetch";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -45,7 +45,7 @@ const Category = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/categories/detail" style={{ textDecoration: "none" }}>
+            <Link to="/categories/edit" style={{ textDecoration: "none" }}>
               <div className="editButton">
                 <EditIcon />
               </div>

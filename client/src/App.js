@@ -13,6 +13,7 @@ import {
   DestinationDetail,
   AddDestination,
   AddCategory,
+  EditCategory,
 } from "./pages";
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           <Route path="categories">
             <Route index element={<Category />} />
             <Route path="add" element={<AddCategory />} />
+            <Route path="edit" element={<EditCategory />} />
           </Route>
         </Route>
       </Routes>

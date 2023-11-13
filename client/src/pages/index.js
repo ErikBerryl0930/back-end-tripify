@@ -8,6 +8,7 @@ import User from "./user/User";
 import DestinationDetail from "./destination/DestinationDetail";
 import AddDestination from "./destination/AddDestination";
 import AddCategory from "./category/AddCategory";
+import EditCategory from "./category/EditCategory";
 
 export {
   Home,
@@ -19,5 +20,6 @@ export {
   User,
   DestinationDetail,
   AddDestination,
-  AddCategory
+  AddCategory,
+  EditCategory
 };
