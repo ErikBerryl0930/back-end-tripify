@@ -15,6 +15,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "../../features/authSlice";
+import Swal from "sweetalert2";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
@@ -22,9 +23,25 @@ const Sidebar = () => {
   const dispatchLogout = useDispatch();
   const navigate = useNavigate();
 
-  const logout = () => {
-    dispatchLogout(setLogout());
-    navigate("/login");
+  const logout = async () => {
+    Swal.fire({
+      title: "Logout",
+      text: "Are you sure want to logout?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatchLogout(setLogout());
+        navigate("/login");
+        Swal.fire({
+          title: "You have been logged out!",
+          icon: "success",
+        });
+      }
+    });
   };
 
   return (
@@ -69,24 +86,7 @@ const Sidebar = () => {
               <span>Categories</span>
             </li>
           </Link>
-          {/* <p className="title">USEFUL</p>
-          <li>
-            <InsertChartIcon className="icon" />
-            <span>Stats</span>
-          </li>
-          <li>
-            <NotificationsNoneIcon className="icon" />
-            <span>Notifications</span>
-          </li> */}
           <p className="title">SERVICE</p>
-          {/* <li>
-            <SettingsSystemDaydreamOutlinedIcon className="icon" />
-            <span>System Health</span>
-          </li>
-          <li>
-            <PsychologyOutlinedIcon className="icon" />
-            <span>Logs</span>
-          </li> */}
           <li>
             <SettingsApplicationsIcon className="icon" />
             <span>Settings</span>
@@ -98,12 +98,15 @@ const Sidebar = () => {
               <span>Profile</span>
             </li>
           </Link>
+          <Link onClick={logout}>
           <li>
             <ExitToAppIcon className="icon" />
             <span>
-              <button onClick={logout}>Logout</button>
+              Logout
+              {/* <button onClick={logout}>Logout</button> */}
             </span>
           </li>
+          </Link>
         </ul>
       </div>
       <div className="bottom">

@@ -1,5 +1,6 @@
 import { instanceAxios } from "./instance.axios";
 import { setError, setCategory, setLoading, setCategoryById } from "../features/categorySlice";
+import Swal from 'sweetalert2';
 
 const BASE_URL = "http://localhost:3000/api/categories";
 
@@ -50,6 +51,10 @@ export const addCategory = (form) => {
         url: BASE_URL + "/add",
         data: form
       })
+      Swal.fire({
+        title: "Category Successfully Added!",
+        icon: "success",
+      });
 
       // console.log(response.data)
 
@@ -71,6 +76,10 @@ export const editCategory = (id, form) => {
         url: BASE_URL + "/edit/" + id,
         data: form
       })
+      Swal.fire({
+        title: "Category Successfully Updated!",
+        icon: "success",
+      });
 
       // console.log(response.data)
 

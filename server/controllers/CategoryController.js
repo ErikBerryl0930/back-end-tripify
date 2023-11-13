@@ -5,6 +5,7 @@ class CategoryController {
     try {
       let listCategories = await category.findAll({
         attributes: ["id", "category_name"],
+        order: ["id"]
       });
 
       res.status(200).json(listCategories);

@@ -18,17 +18,13 @@ const EditCategory = () => {
   const save = (e) => {
     e.preventDefault();
     dispatch(editCategory(+params.id, category_name));
+    navigate('/categories');
   };
 
   useEffect(() => {
     dispatch(getCategoryById(+params.id));
   }, [dispatch, params.id]);
 
-  // useEffect(() => {
-  //   setName(category_name)
-  // }, [category_name]);
-
-  // console.log(params.id);
   return (
     <div className="new">
       <Sidebar />
