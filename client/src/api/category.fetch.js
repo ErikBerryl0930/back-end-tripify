@@ -1,5 +1,5 @@
 import { instanceAxios } from "./instance.axios";
-import { setError, setCategory, setLoading } from "../features/categorySlice";
+import { setError, setCategory, setLoading, setCategoryById } from "../features/categorySlice";
 
 const BASE_URL = "http://localhost:3000/api/categories";
 
@@ -21,7 +21,7 @@ export const getCategories = () => {
   };
 };
 
-export const getCategoriyById = (id) => {
+export const getCategoryById = (id) => {
   return async (dispatch) => {
     dispatch(setLoading(true));
     try {
@@ -31,7 +31,7 @@ export const getCategoriyById = (id) => {
       });
 
       console.log(response.data)
-      dispatch(setCategory(response.data));
+      dispatch(setCategoryById(response.data));
     } catch (error) {
       console.log(error);
       dispatch(setError(error.response.data.message));
@@ -51,7 +51,7 @@ export const addCategory = (form) => {
         data: form
       })
 
-      console.log(response.data)
+      // console.log(response.data)
 
     } catch (error) {
       console.log(error)
@@ -68,11 +68,11 @@ export const editCategory = (id, form) => {
 
       let response = await instanceAxios({
         method: "PATCH",
-        url: BASE_URL + "/edit" + id,
+        url: BASE_URL + "/edit/" + id,
         data: form
       })
 
-      console.log(response.data)
+      // console.log(response.data)
 
     } catch (error) {
       console.log(error)
@@ -92,8 +92,6 @@ export const removeCategory = (id) => {
         url: BASE_URL + "/remove/" + id,
 
       })
-
-      console.log(response.data)
 
     } catch (error) {
       console.log(error)
