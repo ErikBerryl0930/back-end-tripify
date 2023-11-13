@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 import { editCategory } from "../../api/category.fetch";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { useParams } from "react-router-dom";
 
 const EditCategory = () => {
   const [category_name, setName] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const params = useParams();
 
   console.log(category_name);
 

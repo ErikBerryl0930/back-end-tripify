@@ -21,6 +21,25 @@ export const getCategories = () => {
   };
 };
 
+export const getCategoriyById = (id) => {
+  return async (dispatch) => {
+    dispatch(setLoading(true));
+    try {
+      let response = await instanceAxios({
+        method: "GET",
+        url: BASE_URL + "/information/" + id,
+      });
+
+      console.log(response.data)
+      dispatch(setCategory(response.data));
+    } catch (error) {
+      console.log(error);
+      dispatch(setError(error.response.data.message));
+      dispatch(setLoading(false));
+    }
+  };
+};
+
 export const addCategory = (form) => {
   return async (dispatch) => {
     dispatch(setLoading(false))

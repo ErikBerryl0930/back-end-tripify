@@ -82,7 +82,8 @@ const AddDestination = () => {
                   type="text"
                   name="destination_name"
                   onChange={handleInputChange}
-                  placeholder="Enter destination name" />
+                  placeholder="Enter destination name"
+                />
               </div>
               <div className="formInput">
                 <label>Description</label>
@@ -90,7 +91,8 @@ const AddDestination = () => {
                   type="text"
                   name="description"
                   onChange={handleInputChange}
-                  placeholder="Enter description" />
+                  placeholder="Enter description"
+                />
               </div>
               <div className="formInput">
                 <label>Region</label>
@@ -110,10 +112,9 @@ const AddDestination = () => {
                   placeholder="Enter city"
                 />
               </div>
-             
               <div className="formInput">
                 <label>Transport Recommendation</label>
-                <input onChange={(e) => setTransport_recomendation({ transport_recomendation: e.target.value })}
+                <input
                   type="text"
                   name="transport_recomendation"
                   onChange={handleInputChange}
@@ -124,7 +125,7 @@ const AddDestination = () => {
                 <label htmlFor="file">
                   Image: <DriveFolderUploadOutlinedIcon className="icon" />
                 </label>
-                <input onChange={(e) => setPicture({ picture: e.target.value })}
+                <input
                   type="file"
                   id="file"
                   name="image"
@@ -134,10 +135,12 @@ const AddDestination = () => {
               </div>
               <div className="formInput">
                 <label>Price</label>
-                <input type="number"
+                <input
+                  type="number"
                   name="price"
                   onChange={handleInputChange}
-                  placeholder="Enter price" />
+                  placeholder="Enter price"
+                />
               </div>
 
               {/* {inputs.map((input) => (
@@ -146,9 +149,7 @@ const AddDestination = () => {
                   <input type={input.type} placeholder={input.placeholder} />
                 </div>
               ))} */}
-              <button
-                onClick={handleSubmit}
-              >Send</button>
+              <button onClick={handleSubmit}>Send</button>
             </form>
           </div>
         </div>

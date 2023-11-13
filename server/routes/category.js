@@ -4,6 +4,7 @@ const { authentication, isAdmin } = require('../middleware/authorization')
 
 
 categoryRoute.get("/", CategoryController.getListCategory);
+categoryRoute.get("/information/:id", CategoryController.getCategoryById);
 categoryRoute.post("/add", authentication, isAdmin, CategoryController.addCategory);
 categoryRoute.patch("/edit/:id", authentication, isAdmin, CategoryController.editCategory);
 categoryRoute.delete("/remove/:id", authentication, isAdmin, CategoryController.deleteCategory);

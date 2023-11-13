@@ -7,7 +7,22 @@ class CategoryController {
         attributes: ['id', 'category_name']
       });
 
-
+      res.status(200).json(listCategories);
+    } catch (e) {
+      res.status(500).json({ message: e.message });
+    }
+  }
+  
+  static async getCategoryById(req, res) {
+    const id = req.params.id;
+    try {
+      let listCategories = await category.findOne({
+        attributes: ['id', 'category_name']
+      }, {
+        where: {
+          id
+        }
+      });
 
       res.status(200).json(listCategories);
     } catch (e) {
