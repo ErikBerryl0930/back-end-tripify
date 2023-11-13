@@ -6,20 +6,18 @@ import { addCategory } from "../../api/category.fetch";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 
-
-
 const AddCategory = () => {
-  const [category_name, setName] = useState("")
+  const [category_name, setName] = useState("");
 
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  console.log(category_name)
+  console.log(category_name);
 
   const save = (e) => {
-    e.preventDefault()
-    dispatch(addCategory(category_name))
-  }
+    e.preventDefault();
+    dispatch(addCategory(category_name));
+  };
 
   return (
     <div className="new">
@@ -37,11 +35,10 @@ const AddCategory = () => {
                 <input
                   onChange={(e) => setName({ category_name: e.target.value })}
                   type="text"
-                  placeholder="Enter category name" />
+                  placeholder="Enter category name"
+                />
               </div>
-              <button
-                onClick={save}
-              >Add</button>
+              <button onClick={save}>Add</button>
             </form>
           </div>
         </div>

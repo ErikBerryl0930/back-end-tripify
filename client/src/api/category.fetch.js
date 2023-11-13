@@ -70,7 +70,7 @@ export const removeCategory = (id) => {
 
       let response = await instanceAxios({
         method: "DELETE",
-        url: BASE_URL + "/remove" + id,
+        url: BASE_URL + "/remove/" + id,
 
       })
 

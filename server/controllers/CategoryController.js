@@ -4,15 +4,12 @@ class CategoryController {
   static async getListCategory(req, res) {
     try {
       let listCategories = await category.findAll({
-        attributes: ['category_name']
+        attributes: ['id', 'category_name']
       });
 
-      let categories = listCategories.map((category, index) => ({
-        id: index + 1,
-        category_name: category.category_name
-      }))
 
-      res.status(200).json(categories);
+
+      res.status(200).json(listCategories);
     } catch (e) {
       res.status(500).json({ message: e.message });
     }

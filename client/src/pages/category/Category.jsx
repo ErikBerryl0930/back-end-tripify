@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { Navbar, Sidebar } from "../../components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategories } from "../../api/category.fetch";
+import { getCategories, removeCategory } from "../../api/category.fetch";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -25,7 +25,6 @@ const Category = () => {
   useEffect(() => {
     setData(categories);
   }, [categories]);
-  console.log(categories)
 
   useEffect(() => {
     if (!isLogin) {
@@ -34,6 +33,7 @@ const Category = () => {
   }, [isLogin, navigate]);
 
   const handleDelete = (id) => {
+    dispatch(removeCategory(id));
     setData(data.filter((item) => item.id !== id));
   };
 
@@ -45,7 +45,7 @@ const Category = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/categories/detail" style={{ textDecoration: "none" }}>
+            <Link to={`/categories/detail/${params.row.id}`} style={{ textDecoration: "none" }}>
               <div className="editButton">
                 <EditIcon />
               </div>
