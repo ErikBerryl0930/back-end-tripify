@@ -1,5 +1,5 @@
 import { instanceAxios } from "../api/instance.axios"
-import { setLoading, setDesntiation, setError } from "../features/slice"
+import { setLoading, setDestinations, setDestination, setError } from "../features/slice"
 
 const BASE_URL = "http://localhost:3000/api/destinations"
 
@@ -15,7 +15,29 @@ export const getDestinations = () => {
                 url: BASE_URL
             })
 
-            dispatch(setDesntiation(response.data))
+            dispatch(setDestinations(response.data))
+            dispatch(setError(false))
+        } catch (error) {
+            dispatch(setError(error.response.data.message))
+            dispatch(setError(false))
+        }
+    }
+}
+
+export const getDestinationDetail = (id) => {
+    return async (dispatch) => {
+
+        dispatch(setLoading(true))
+
+        try {
+
+            let response = await instanceAxios({
+                method: 'GET',
+                url: BASE_URL + "/information/" + id
+            })
+
+            // console.log(response.data)
+            dispatch(setDestination(response.data))
             dispatch(setError(false))
         } catch (error) {
             dispatch(setError(error.response.data.message))
@@ -39,10 +61,51 @@ export const addDestination = (form) => {
 
             })
 
-            console.log(response.data)
+        } catch (error) {
+            console.log(error)
+            dispatch(setError(error.response.data.message))
+            dispatch(setError(false))
+        }
+    }
+}
+
+export const editDestination = (id, form) => {
+    return async (dispatch) => {
+        dispatch(setLoading(true))
+        try {
+
+            let response = await instanceAxios({
+                method: 'PATCH',
+                url: BASE_URL + '/edit/' + id,
+                data: form,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
+
+            })
 
         } catch (error) {
             console.log(error)
+            dispatch(setError(error.response.data.message))
+            dispatch(setError(false))
+        }
+    }
+}
+
+export const deleteDestination = (id) => {
+    return async (dispatch) => {
+
+        dispatch(setLoading(true))
+
+        try {
+
+            let response = await instanceAxios({
+                method: 'DELETE',
+                url: BASE_URL + "/remove/" + id
+            })
+
+            // console.log(response.data)                        
+        } catch (error) {
             dispatch(setError(error.response.data.message))
             dispatch(setError(false))
         }

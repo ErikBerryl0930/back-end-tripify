@@ -39,17 +39,16 @@ class DestinationController {
     }
 
     static async destinyInformation(req, res) {
-        const id = req.params.id
+        
         try {
-            const destiny = await destination.findOne({
-                include: [category],
-            }, {
+            const destiny = await destination.findOne(                
+             {
                 where: {
-                    id,
+                   id: req.params.id
                 },
                 attributes: ['destination_name','description', 'region','city','transport_recomendation','picture','price'],
-            }
-            )
+                include: [category],
+            })
 
             if (!destiny) return res.status(404).json({ message: 'please select correct destination' })
 
@@ -164,7 +163,7 @@ class DestinationController {
 
     static async editDestination(req, res){
         try{
-            const { destination_name, description, region, city, price, rating, transport_recomendation } = req.body
+            const { destination_name, description, region, city, price, transport_recomendation } = req.body
 
             let dest = await destination.findByPk(req.params.id)            
 
@@ -173,16 +172,16 @@ class DestinationController {
                 file_upload = dest.dataValues.picture
             }else{
                 file_upload = `http://localhost:3000/images/${req.file.filename}`
-            }
-
+            }           
             
+            // console.log(name, des, reg, ci, pri, transport)
+
             const updated = await destination.update({
                 destination_name, 
                 description, 
                 region, 
                 city, 
-                price,
-                rating, 
+                price,                
                 transport_recomendation, 
                 picture : file_upload
             },{

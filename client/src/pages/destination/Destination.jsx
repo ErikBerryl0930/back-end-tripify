@@ -10,12 +10,14 @@ import { useNavigate } from "react-router-dom";
 import InfoIcon from "@mui/icons-material/Info";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { getDestinations } from "../../api/fetch";
+import { deleteDestination, getDestinations } from "../../api/fetch";
+
 
 const Destination = () => {
   const [data, setData] = useState([]);
 
   const handleDelete = (id) => {
+    dispatch(deleteDestination(id))
     setData(data.filter((item) => item.id !== id));
   };
 
@@ -23,7 +25,7 @@ const Destination = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const { destinations } = useSelector((state) => state.destination);
+  const { destinations } = useSelector((state) => state.dest);
 
   useEffect(() => {
     dispatch(getDestinations());
@@ -55,7 +57,10 @@ const Destination = () => {
                 <InfoIcon />
               </div>
             </Link>
-            <Link to="/destinations/detail" style={{ textDecoration: "none" }}>
+            <Link
+              to={`/destinations/edit/${params.row.id}`}
+              style={{ textDecoration: "none" }}
+            >
               <div className="editButton">
                 <EditIcon />
               </div>

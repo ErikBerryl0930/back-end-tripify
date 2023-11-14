@@ -14,6 +14,7 @@ import {
   AddDestination,
   AddCategory,
   EditCategory,
+  EditDestination
 } from "./pages";
 
 function App() {
@@ -32,6 +33,9 @@ function App() {
             <Route index element={<Destination />} />
             <Route path=":destinationId" element={<DestinationDetail />} />
             <Route path="add" element={<AddDestination />} />
+            <Route path="edit">
+              <Route path=":id" element={<EditDestination />} />
+            </Route>
           </Route>
           <Route path="transactions">
             <Route index element={<Transaction />} />

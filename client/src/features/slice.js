@@ -4,14 +4,18 @@ const destinationSlice = createSlice({
   name: "dest",
   initialState: {
     destinations: [],
+    destination: "",
     isLoading: false,
     isError: false,
   },
   reducers: {
-    setDesntiation(state, action) {
+    setDestinations(state, action) {
       (state.destinations = action.payload), (state.isLoading = false);
     },
-
+    setDestination(state, action) {
+      state.destination = action.payload
+      state.isLoading = false
+    },
     setLoading(state, action) {
       state.isLoading = action.payload;
     },
@@ -22,7 +26,7 @@ const destinationSlice = createSlice({
   },
 });
 
-export const { setDesntiation, setError, setLoading } =
+export const { setDestinations, setDestination, setError, setLoading } =
   destinationSlice.actions;
 
 export default destinationSlice.reducer;
