@@ -11,6 +11,6 @@ export const store = configureStore({
     user: userReducer,
     transaction: transactionReducer,
     category: categorySlice,
-    destination: destinationReducer
+    dest: destinationReducer
   },
 });

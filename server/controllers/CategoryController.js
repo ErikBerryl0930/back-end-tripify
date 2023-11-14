@@ -12,16 +12,15 @@ class CategoryController {
       res.status(500).json({ message: e.message });
     }
   }
-  
+
   static async getCategoryById(req, res) {
-    const id = req.params.id;
+
     try {
       let listCategories = await category.findOne({
-        attributes: ['id', 'category_name']
-      }, {
         where: {
-          id
-        }
+          id: req.params.id
+        },
+        attributes: ['id', 'category_name']
       });
 
       res.status(200).json(listCategories);
