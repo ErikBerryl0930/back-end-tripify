@@ -1,6 +1,7 @@
 import { setLogin, setLoading, setError, setAdmin } from "../features/authSlice"
 
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const BASE_URL = "http://localhost:3000/api/users"
 
@@ -24,6 +25,11 @@ export const auth = (form) => {
             console.log(error)
             dispatch(setError(error.response.data.message))
             dispatch(setLoading(false))
+            Swal.fire({
+              icon: "error",
+              title: "Login Failed",
+              text: "You have entered an invalid email or password",
+            });
         }
     }
 }

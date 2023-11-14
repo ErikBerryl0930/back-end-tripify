@@ -17,6 +17,7 @@ const AddCategory = () => {
   const save = (e) => {
     e.preventDefault();
     dispatch(addCategory(category_name));
+    navigate("/categories");
   };
 
   return (

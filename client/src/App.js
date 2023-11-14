@@ -39,7 +39,9 @@ function App() {
           <Route path="categories">
             <Route index element={<Category />} />
             <Route path="add" element={<AddCategory />} />
-            <Route path="edit" element={<EditCategory />} />
+            <Route path="edit">
+              <Route path=":id" element={<EditCategory />} />
+            </Route>
           </Route>
         </Route>
       </Routes>

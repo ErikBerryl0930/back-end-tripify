@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import Swal from "sweetalert2";
 
 const authSlice = createSlice({
     name: 'auth',

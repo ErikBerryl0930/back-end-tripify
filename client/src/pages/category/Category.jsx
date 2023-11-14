@@ -45,7 +45,7 @@ const Category = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to={`/categories/detail/${params.row.id}`} style={{ textDecoration: "none" }}>
+            <Link to={`/categories/edit/${params.row.id}`} style={{ textDecoration: "none" }}>
               <div className="editButton">
                 <EditIcon />
               </div>

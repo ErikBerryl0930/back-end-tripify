@@ -4,7 +4,8 @@ class CategoryController {
   static async getListCategory(req, res) {
     try {
       let listCategories = await category.findAll({
-        attributes: ['id', 'category_name']
+        attributes: ["id", "category_name"],
+        order: ["id"]
       });
 
       res.status(200).json(listCategories);
@@ -12,6 +13,7 @@ class CategoryController {
       res.status(500).json({ message: e.message });
     }
   }
+
 
   static async getCategoryById(req, res) {
 
@@ -23,7 +25,7 @@ class CategoryController {
         attributes: ['id', 'category_name']
       });
 
-      res.status(200).json(listCategories);
+      res.status(200).json(categories);
     } catch (e) {
       res.status(500).json({ message: e.message });
     }
@@ -32,14 +34,16 @@ class CategoryController {
   static async addCategory(req, res) {
     const { category_name } = req.body;
     try {
-
       let found = await category.findOne({
         where: {
-          category_name
-        }
-      })
+          category_name,
+        },
+      });
 
-      if (found) return res.status(400).json({ success: false, message: 'category already exist' })
+      if (found)
+        return res
+          .status(400)
+          .json({ success: false, message: "category already exist" });
 
       let categories = await category.create({
         category_name,
@@ -70,23 +74,24 @@ class CategoryController {
 
   static async editCategory(req, res) {
     try {
+      const { category_name } = req.body;
 
-      const { category_name } = req.body
-
-      const updatedCategory = await category.update({
-        category_name,
-      }, {
-        where: {
-          id: req.params.id
+      const updatedCategory = await category.update(
+        {
+          category_name,
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
         }
-      })
+      );
 
-      updatedCategory[0] === 1 ?
-        res.status(200).json({ message: 'category successfully updated' }) :
-        res.status(404).json({ message: 'category not found' })
-
+      updatedCategory[0] === 1
+        ? res.status(200).json({ message: "category successfully updated" })
+        : res.status(404).json({ message: "category not found" });
     } catch (e) {
-      res.status(500).json({ message: e.message })
+      res.status(500).json({ message: e.message });
     }
   }
 }
