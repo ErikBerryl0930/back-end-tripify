@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import InfoIcon from "@mui/icons-material/Info";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { getDestinations } from "../../api/fetch";
+import { getDestinations } from "../../api/destination.fetch";
 
 const Destination = () => {
   const [data, setData] = useState([]);

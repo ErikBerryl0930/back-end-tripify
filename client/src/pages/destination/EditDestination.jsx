@@ -1,56 +1,40 @@
- import "./adddestination.scss";
- import Sidebar from "../../components/sidebar/Sidebar";
- import Navbar from "../../components/navbar/Navbar";
- import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
- import { useState } from "react";
- import { addDestination } from "../../api/fetch";
- import { useDispatch } from "react-redux";
- import { useNavigate } from "react-router-dom";
+import "./adddestination.scss";
+import Sidebar from "../../components/sidebar/Sidebar";
+import Navbar from "../../components/navbar/Navbar";
+import { useEffect, useState } from "react";
+import { editDestination } from "../../api/destination.fetch";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { useParams } from "react-router-dom";
+import { getDestinationById } from "../../api/destination.fetch";
 
-const AddDestination = () => {
+const editDestination = () => {
   const [destination_name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [region, setRegion] = useState("");
-  const [city, setCity] = useState("");
   const [price, setPrice] = useState("");
   const [transport_recomendation, setTransport_recomendation] = useState("");
   const [picture, setPicture] = useState("");
+  const { destination } = useSelector((state) => state.destination);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  console.log(destination_name);
-  console.log(description);
-  console.log(region);
-  console.log(city);
-  console.log(price);
-  console.log(transport_recomendation);
-  console.log(picture);
+  const params = useParams();
 
   const save = (e) => {
     e.preventDefault();
-    dispatch(addDestination(destination_name,description,region,city,price,transport_recomendation,picture,
-      ));
+    dispatch(editDestination(+params.id, destination_name,description,region,price,transport_recomendation,
+       picture ));
   };
+
+  useEffect(() => {
+    dispatch(getDestinationById(+params.id));
+  }, [dispatch, params.id]);
+
+  
   return (
-    <div className="new">
-      <Sidebar />
-      <div className="newContainer">
-        <Navbar />
-        <div className="top">
-          <h1>Add New Destination</h1>
-        </div>
-        <div className="bottom">
-          {/* <div className="left">
-            <img
-              src={
-                form.picture
-                  ? URL.createObjectURL(form.picture)
-                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-              }
-              alt=""
-            /> */}
-          </div>
+    
+
           <div className="right">
             <form>
               <div className="formInput">
@@ -124,13 +108,11 @@ const AddDestination = () => {
               <button onClick={save}>Send</button>
             </form>
           </div>
-        </div>
-      </div>
+       
   
   );
 };
 
-export default AddDestination;
 
 
 
@@ -167,6 +149,33 @@ export default AddDestination;
 
 
 
+    // <div className="new">
+    //   <Sidebar />
+    //   <div className="newContainer">
+    //     <Navbar />
+    //     <div className="top">
+    //       <h1>Edit Destination</h1>
+    //     </div>
+    //     <div className="bottom">
+    //       <div className="right">
+    //         <form>
+    //           <div className="formInput">
+    //             <label>Category</label>
+    //             <input
+    //               defaultValue={category.category_name}
+    //               onChange={(e) => setName({ category_name: e.target.value })}
+    //               type="text"
+    //               placeholder="Enter category name"
+    //             />
+    //           </div>
+    //           <button onClick={save}>Save</button>
+    //         </form>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
+    
+//   );
+// };
 
-
-
+//export default EditCategory;
