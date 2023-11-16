@@ -1,5 +1,5 @@
 import { instanceAxios } from "../api/instance.axios"
-import { setLoading, setDestinations, setDestination, setError } from "../features/slice"
+import { setLoading, setDestinations, setDestination, setError } from "../features/destinationSlice"
 
 const BASE_URL = "http://localhost:3000/api/destinations"
 

@@ -3,7 +3,7 @@ import authReducers from '../features/authSlice'
 import userReducer from "../features/userSlice"
 import transactionReducer from '../features/transactionSlice';
 import categorySlice from '../features/categorySlice';
-import destinationReducer from '../features/slice';
+import destinationReducer from '../features/destinationSlice';
 
 export const store = configureStore({
   reducer: {
