@@ -1,4 +1,4 @@
-const { destination, rating, category, destinationcategories,users ,sequelize } = require('../models');
+const { destination, rating, category, destinationcategories,users , transaction,sequelize } = require('../models');
 const { Op } = require("sequelize");
 
 
@@ -223,6 +223,30 @@ class DestinationController {
             res.status(500).json({ message: e.message }) 
         }
     }
+
+    static async transactionCount(req, res){
+        try{
+
+            let COUNT = await transaction.findAll(
+                {                
+                    attributes: [
+                        [sequelize.fn('COUNT', sequelize.col('transaction.id')), 'transactionCount'],
+                    ],
+                    group:['transaction.id']
+                }
+            )
+
+            res.status(200).json({
+                success: true,
+                count: COUNT
+            })
+
+        }catch(e){
+            res.status(500).json({ message: e.message })
+        }
+    }
+
+
 
 }
 
