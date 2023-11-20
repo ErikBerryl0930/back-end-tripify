@@ -10,5 +10,6 @@ destinyRoute.patch('/edit/:id', authentication, isAdmin, upload.single('image'),
 destinyRoute.delete('/remove/:id', authentication, isAdmin, DestinationController.remove)
 destinyRoute.get('/recomendation', DestinationController.recomendation)
 destinyRoute.post('/review/:id', authentication, DestinationController.rateDestination)
+destinyRoute.get('/counters', DestinationController.transactionCount)
 
 module.exports = destinyRoute

@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       destination.belongsToMany(models.users, { through: models.rating })
       destination.belongsToMany(models.category, { through: models.destinationcategories })
+      destination.belongsToMany(models.users, { through: models.transaction})
     }
   }
   destination.init({
