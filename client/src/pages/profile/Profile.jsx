@@ -1,22 +1,13 @@
 import React from "react";
-import "./destinationdetail.scss";
+import "./profile.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getDestinationDetail } from "../../api/fetch";
-// import Chart from "../../components/chart/Chart";
-// import List from "../../components/table/Table";
+import { getProfile } from "../../api/profile.fetch";
 
-const rupiah = (number) => {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-  }).format(number);
-};
-
-const DestinationDetail = () => {
+const Profile = () => {
   const [detail, setDetail] = useState("");
   const { isLogin } = useSelector((state) => state.auth);
   const { destination } = useSelector((state) => state.dest);
@@ -25,7 +16,7 @@ const DestinationDetail = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getDestinationDetail(+params.id));
+    dispatch(getProfile(+params.id));
   }, [dispatch, params.id]);
   
   useEffect(() => {
@@ -49,47 +40,44 @@ const DestinationDetail = () => {
         <Navbar />
         <div className="top">
           <div className="left">
-            <h1 className="title">Information</h1>
+            <h1 className="title">Profile</h1>
             <div className="item">
-              <img src={destination.picture} alt="" className="itemImg" />
+              <img src={destination.picture} alt="" className="profileImg" />
               <div className="details">
                 <h1 className="itemTitle">{destination.destination_name}</h1>
                 <div className="detailItem">
-                  <span className="itemKey">Description:</span>
+                  <span className="itemKey">Full Name:</span>
                   <span className="itemValue">
                     {destination.description}
                   </span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Region:</span>
+                  <span className="itemKey">Username:</span>
                   <span className="itemValue">{destination.region}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">City:</span>
+                  <span className="itemKey">Email:</span>
+                  <span className="itemValue">{destination.region}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Address:</span>
+                  <span className="itemValue">{destination.region}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Country:</span>
                   <span className="itemValue">{destination.city}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Transport Recommendation:</span>
+                  <span className="itemKey">Phone:</span>
                   <span className="itemValue">{destination.transport_recomendation}</span>
                 </div>
-                <div className="detailItem">
-                  <span className="itemKey">Ticket Price:</span>
-                  <span className="itemValue">{rupiah(destination.price)}</span>
-                </div>
-                {/* <div className="detailItem">
-                  <span className="itemKey">Rating:</span>
-                  <span className="itemValue">5</span>
-                </div> */}
               </div>
             </div>
           </div>
-          {/* <div className="right">
-            <Chart aspect={3 / 1} title="User Spending ( Last 6 Months)" />
-          </div> */}
         </div>
       </div>
     </div>
   );
 };
 
-export default DestinationDetail;
+export default Profile;

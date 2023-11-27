@@ -7,6 +7,7 @@ import { Navbar, Sidebar } from "../../components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories, removeCategory } from "../../api/category.fetch";
+import Swal from "sweetalert2";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -33,8 +34,26 @@ const Category = () => {
   }, [isLogin, navigate]);
 
   const handleDelete = (id) => {
-    dispatch(removeCategory(id));
-    setData(data.filter((item) => item.id !== id));
+    Swal.fire({
+      text: "Are you sure want to delete?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(removeCategory(id));
+        setData(data.filter((item) => item.id !== id));
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Category Successfully Deleted",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
   };
 
   const actionColumn = [
@@ -45,7 +64,10 @@ const Category = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to={`/categories/edit/${params.row.id}`} style={{ textDecoration: "none" }}>
+            <Link
+              to={`/categories/edit/${params.row.id}`}
+              style={{ textDecoration: "none" }}
+            >
               <div className="editButton">
                 <EditIcon />
               </div>

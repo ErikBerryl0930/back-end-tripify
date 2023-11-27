@@ -5,7 +5,7 @@ import { DarkModeContext } from "./context/darkModeContext";
 import {
   Destination,
   Home,
-  Layout,
+  // Layout,
   Login,
   Transaction,
   Category,
@@ -14,7 +14,8 @@ import {
   AddDestination,
   AddCategory,
   EditCategory,
-  EditDestination
+  EditDestination,
+  Profile,
 } from "./pages";
 
 function App() {
@@ -23,15 +24,17 @@ function App() {
   return (
     <div className={darkMode ? "app dark" : "app"}>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/">
+        <Route path="login" element={<Login />} />
+        <Route path="">
           <Route index element={<Home />} />
           <Route path="users">
             <Route index element={<User />} />
           </Route>
           <Route path="destinations">
             <Route index element={<Destination />} />
-            <Route path=":destinationId" element={<DestinationDetail />} />
+            <Route path="information">
+              <Route path=":id" element={<DestinationDetail />} />
+            </Route>
             <Route path="add" element={<AddDestination />} />
             <Route path="edit">
               <Route path=":id" element={<EditDestination />} />
@@ -39,6 +42,11 @@ function App() {
           </Route>
           <Route path="transactions">
             <Route index element={<Transaction />} />
+          </Route>
+          <Route path="profile">
+            <Route path="user">
+              <Route path=":id" element={<Profile />} />
+            </Route>
           </Route>
           <Route path="categories">
             <Route index element={<Category />} />

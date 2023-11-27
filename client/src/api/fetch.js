@@ -1,5 +1,6 @@
-import { instanceAxios } from "../api/instance.axios"
-import { setLoading, setDestinations, setDestination, setError } from "../features/destinationSlice"
+import { instanceAxios } from "../api/instance.axios";
+import { setLoading, setDestinations, setDestination, setError } from "../features/destinationSlice";
+import Swal from "sweetalert2";
 
 const BASE_URL = "http://localhost:3000/api/destinations"
 
@@ -36,7 +37,7 @@ export const getDestinationDetail = (id) => {
                 url: BASE_URL + "/information/" + id
             })
 
-            // console.log(response.data)
+            console.log(response.data)
             dispatch(setDestination(response.data))
             dispatch(setError(false))
         } catch (error) {
@@ -58,8 +59,14 @@ export const addDestination = (form) => {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 }
-
             })
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Destination successfully added",
+              showConfirmButton: false,
+              timer: 1500,
+            });
 
         } catch (error) {
             console.log(error)
@@ -81,8 +88,14 @@ export const editDestination = (id, form) => {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 }
-
             })
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Destination successfully updated",
+              showConfirmButton: false,
+              timer: 1500,
+            });
 
         } catch (error) {
             console.log(error)

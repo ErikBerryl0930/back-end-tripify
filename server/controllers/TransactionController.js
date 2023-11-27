@@ -7,10 +7,10 @@ class TransactionController {
     try {
       let transactions = await transaction.findAll({
         where: {
-          id: req.userData.id
+          id: req.userData.id,
         },
-        attributes: ['date_checkin', 'invoice_number', 'qty_ticket']
-
+        attributes: ["date_checkin", "invoice_number", "qty_ticket"],
+        order: ["id"]
       });
 
       res.status(200).json(transactions);

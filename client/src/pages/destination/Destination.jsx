@@ -1,6 +1,6 @@
 import "./destination.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { destinationColumns, destinationRows } from "./destinationsource";
+import { destinationColumns } from "./destinationsource";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Navbar, Sidebar } from "../../components";
@@ -11,14 +11,32 @@ import InfoIcon from "@mui/icons-material/Info";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteDestination, getDestinations } from "../../api/fetch";
-
+import Swal from "sweetalert2";
 
 const Destination = () => {
   const [data, setData] = useState([]);
 
   const handleDelete = (id) => {
-    dispatch(deleteDestination(id))
-    setData(data.filter((item) => item.id !== id));
+    Swal.fire({
+      text: "Are you sure want to delete?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteDestination(id));
+        setData(data.filter((item) => item.id !== id));
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Destination successfully deleted",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
   };
 
   const { isLogin } = useSelector((state) => state.auth);
@@ -50,7 +68,7 @@ const Destination = () => {
         return (
           <div className="cellAction">
             <Link
-              to="/destinations/:destinationId"
+              to={`/destinations/information/${params.row.id}`}
               style={{ textDecoration: "none" }}
             >
               <div className="viewButton">

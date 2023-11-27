@@ -9,7 +9,8 @@ import DestinationDetail from "./destination/DestinationDetail";
 import AddDestination from "./destination/AddDestination";
 import AddCategory from "./category/AddCategory";
 import EditCategory from "./category/EditCategory";
-import EditDestination from "./destination/EditDestination"
+import EditDestination from "./destination/EditDestination";
+import Profile from "./profile/Profile";
 
 export {
   Home,
@@ -23,5 +24,6 @@ export {
   AddDestination,
   AddCategory,
   EditCategory,
-  EditDestination
+  EditDestination,
+  Profile,
 };

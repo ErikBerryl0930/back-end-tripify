@@ -11,6 +11,7 @@ class UserController {
 
             let listUsers = await users.findAll({
                 attributes: ['username', 'email',],
+                order: ["id"],
                 include: [{
                     model: profile,
                     attributes: ['fullname', 'profile_image']

@@ -12,6 +12,7 @@ class DestinationController {
                     {
                         model: destination,
                         attributes: ['id','destination_name','description', 'region','city','transport_recomendation','picture','price'],
+                        order: ["id"]
                     },
                 ],
                 attributes: [
@@ -62,7 +63,7 @@ class DestinationController {
         const categoryId = req.params.id
         const { destination_name, description, region, city,price, transport_recomendation} = req.body
         if(!req.file) return res.status(400).json({message: 'Please add image file'})
-        const imagePath = `/images/${req.file.filename}`;
+        const imagePath = `http://localhost:3000/images/${req.file.filename}`;
         try {
             
             const file_path = req.file.path
