@@ -4,29 +4,28 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getProfile } from "../../api/profile.fetch";
 
 const Profile = () => {
-  const [detail, setDetail] = useState("");
+  const [data, setData] = useState("");
   const { isLogin } = useSelector((state) => state.auth);
-  const { destination } = useSelector((state) => state.dest);
-  const params = useParams();
+  const { profiles } = useSelector((state) => state.profile);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProfile(+params.id));
-  }, [dispatch, params.id]);
-  
+    dispatch(getProfile());
+  }, [dispatch]);
+
   useEffect(() => {
-    if (destination != null) {
-      setDetail(destination);
+    if (profiles != null) {
+      setData(profiles);
     }
-  }, [destination]);
-  
-  console.log(detail);
-  
+  }, [profiles]);
+
+  console.log(profiles);
+
   useEffect(() => {
     if (!isLogin) {
       navigate("/login");
@@ -42,36 +41,51 @@ const Profile = () => {
           <div className="left">
             <h1 className="title">Profile</h1>
             <div className="item">
-              <img src={destination.picture} alt="" className="profileImg" />
+              <img
+                src={profiles.user.profile.profile_image}
+                alt=""
+                className="profileImg"
+              />
               <div className="details">
-                <h1 className="itemTitle">{destination.destination_name}</h1>
-                <div className="detailItem">
-                  <span className="itemKey">Full Name:</span>
-                  <span className="itemValue">
-                    {destination.description}
-                  </span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Username:</span>
-                  <span className="itemValue">{destination.region}</span>
-                </div>
+                <h1 className="itemTitle">{profiles.user.username}</h1>
                 <div className="detailItem">
                   <span className="itemKey">Email:</span>
-                  <span className="itemValue">{destination.region}</span>
+                  <span className="itemValue">{profiles.user.email}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Address:</span>
-                  <span className="itemValue">{destination.region}</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Country:</span>
-                  <span className="itemValue">{destination.city}</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Phone:</span>
-                  <span className="itemValue">{destination.transport_recomendation}</span>
+                  <span className="itemKey">Role:</span>
+                  <span className="itemValue">{profiles.user.role}</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+        <div className="top">
+          <div className="left">
+            <h1 className="title">Change Password</h1>
+            <div className="item">
+                <div className="right">
+                  <form>
+                    <div className="formInput">
+                      <label>Old Password</label>
+                      <input
+                        type="password"
+                        placeholder="Enter old password"
+                      />
+                    </div>
+                  </form>
+                </div>
+                <div className="right">
+                  <form>
+                    <div className="formInput">
+                      <label>New Password</label>
+                      <input
+                        type="password"
+                        placeholder="Enter new password"
+                      />
+                    </div>
+                  </form>
+                </div>
             </div>
           </div>
         </div>

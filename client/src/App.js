@@ -45,7 +45,7 @@ function App() {
           </Route>
           <Route path="profile">
             <Route path="user">
-              <Route path=":id" element={<Profile />} />
+              <Route path="account" element={<Profile />} />
             </Route>
           </Route>
           <Route path="categories">

@@ -4,6 +4,7 @@ import userReducer from "../features/userSlice"
 import transactionReducer from '../features/transactionSlice';
 import categorySlice from '../features/categorySlice';
 import destinationReducer from '../features/destinationSlice';
+import profileReducer from '../features/profileSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     user: userReducer,
     transaction: transactionReducer,
     category: categorySlice,
-    dest: destinationReducer
+    dest: destinationReducer,
+    profile: profileReducer
   },
 });

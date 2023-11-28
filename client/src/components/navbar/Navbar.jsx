@@ -2,15 +2,29 @@ import "./navbar.scss";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import FullscreenExitOutlinedIcon from "@mui/icons-material/FullscreenExitOutlined";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
-import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { getProfile } from "../../api/profile.fetch";
 
 const Navbar = () => {
   const { dispatch } = useContext(DarkModeContext);
+  const [data, setData] = useState("");
+  const { profiles } = useSelector((state) => state.profile);
+  const udispatch = useDispatch();
+
+  useEffect(() => {
+    udispatch(getProfile());
+  }, [udispatch]);
+
+  useEffect(() => {
+    if (profiles != null) {
+      setData(profiles);
+    }
+  }, [profiles]);
+
+  console.log(profiles);
 
   return (
     <div className="navbar">
@@ -30,23 +44,9 @@ const Navbar = () => {
               onClick={() => dispatch({ type: "TOGGLE" })}
             />
           </div>
-          {/* <div className="item">
-            <FullscreenExitOutlinedIcon className="icon" />
-          </div> */}
-          {/* <div className="item">
-            <NotificationsNoneOutlinedIcon className="icon" />
-            <div className="counter">1</div>
-          </div> */}
-          {/* <div className="item">
-            <ChatBubbleOutlineOutlinedIcon className="icon" />
-            <div className="counter">2</div>
-          </div> */}
-          {/* <div className="item">
-            <ListOutlinedIcon className="icon" />
-          </div> */}
           <div className="item">
             <img
-              src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+              src={profiles.user.profile.profile_image}
               alt=""
               className="avatar"
             />

@@ -1,16 +1,15 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getProfile } from "../api/profile.fetch";
+import { createSlice } from "@reduxjs/toolkit";
 
 const profileSlice = createSlice({
   name: "profile",
   initialState: {
-    users: [],
+    profiles: [],
     loading: false,
     error: false,
   },
   reducers: {
-    setUser(state, action) {
-      state.users = action.payload;
+    setProfile(state, action) {
+      state.profiles = action.payload;
       state.loading = false;
     },
     setLoading(state, action) {

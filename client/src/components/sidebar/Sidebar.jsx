@@ -15,6 +15,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "../../features/authSlice";
 import Swal from "sweetalert2";
+import { getProfile } from "../../api/profile.fetch";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
@@ -23,9 +24,9 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const params = useParams();
 
-  // useEffect(() => {
-  //   dispatch(getDestinationDetail(+params.id));
-  // }, [dispatch, params.id]);
+  useEffect(() => {
+    dispatch(getProfile());
+  }, [dispatch]);
 
   const logout = async () => {
     Swal.fire({
@@ -99,12 +100,12 @@ const Sidebar = () => {
             <span>Settings</span>
           </li> */}
           <p className="title">USER</p>
-          {/* <Link to={`/profile/user/${params.row.id}`}>
+          <Link to="/profile/user/account">
             <li>
               <AccountCircleOutlinedIcon className="icon" />
               <span>Profile</span>
             </li>
-          </Link> */}
+          </Link>
           <Link onClick={logout}>
             <li>
               <ExitToAppIcon className="icon" />
