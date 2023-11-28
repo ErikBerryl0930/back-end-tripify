@@ -2,10 +2,46 @@ import React from "react";
 import "./destinationdetail.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import Chart from "../../components/chart/Chart";
-import List from "../../components/table/Table";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getDestinationDetail } from "../../api/fetch";
+// import Chart from "../../components/chart/Chart";
+// import List from "../../components/table/Table";
+
+const rupiah = (number) => {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  }).format(number);
+};
 
 const DestinationDetail = () => {
+  const [detail, setDetail] = useState("");
+  const { isLogin } = useSelector((state) => state.auth);
+  const { destination } = useSelector((state) => state.dest);
+  const params = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getDestinationDetail(+params.id));
+  }, [dispatch, params.id]);
+  
+  useEffect(() => {
+    if (destination != null) {
+      setDetail(destination);
+    }
+  }, [destination]);
+  
+  console.log(detail);
+  
+  useEffect(() => {
+    if (!isLogin) {
+      navigate("/login");
+    }
+  }, [isLogin, navigate]);
+
   return (
     <div className="single">
       <Sidebar />
@@ -13,44 +49,37 @@ const DestinationDetail = () => {
         <Navbar />
         <div className="top">
           <div className="left">
-            {/* <div className="editButton">Edit</div> */}
             <h1 className="title">Information</h1>
             <div className="item">
-              <img
-                src="https://images.pexels.com/photos/18510514/pexels-photo-18510514/free-photo-of-a-close-up-of-apples-on-a-tree.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
-                alt=""
-                className="itemImg"
-              />
+              <img src={destination.picture} alt="" className="itemImg" />
               <div className="details">
-                <h1 className="itemTitle">Destination Name</h1>
+                <h1 className="itemTitle">{destination.destination_name}</h1>
                 <div className="detailItem">
                   <span className="itemKey">Description:</span>
                   <span className="itemValue">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
+                    {destination.description}
                   </span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Region:</span>
-                  <span className="itemValue">Jawa Timur</span>
+                  <span className="itemValue">{destination.region}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">City:</span>
-                  <span className="itemValue">Malang</span>
+                  <span className="itemValue">{destination.city}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Transport Recommendation:</span>
-                  <span className="itemValue">Bus</span>
+                  <span className="itemValue">{destination.transport_recomendation}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Ticket Price:</span>
-                  <span className="itemValue">Rp 10000</span>
+                  <span className="itemValue">{rupiah(destination.price)}</span>
                 </div>
-                <div className="detailItem">
+                {/* <div className="detailItem">
                   <span className="itemKey">Rating:</span>
                   <span className="itemValue">5</span>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

@@ -10,7 +10,8 @@ const destinationSlice = createSlice({
   },
   reducers: {
     setDestinations(state, action) {
-      (state.destinations = action.payload), (state.isLoading = false);
+      state.destinations = action.payload;
+      state.isLoading = false;
     },
     setDestination(state, action) {
       state.destination = action.payload

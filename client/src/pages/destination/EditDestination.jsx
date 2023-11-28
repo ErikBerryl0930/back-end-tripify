@@ -20,6 +20,7 @@ const EditDestination = () => {
   });
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const params = useParams();
   const { destination } = useSelector((state) => state.dest)
 
@@ -70,7 +71,7 @@ const EditDestination = () => {
     formData.append("price", form.price);
 
     dispatch(editDestination(+params.id, formData));
-
+    navigate("/destinations")
 
   };
 

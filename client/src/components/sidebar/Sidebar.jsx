@@ -4,24 +4,29 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import StoreIcon from "@mui/icons-material/Store";
-
-import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
+// import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import {useEffect} from "react";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "../../features/authSlice";
 import Swal from "sweetalert2";
+import { getProfile } from "../../api/profile.fetch";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
 
   const dispatchLogout = useDispatch();
   const navigate = useNavigate();
+  const params = useParams();
+
+  useEffect(() => {
+    dispatch(getProfile());
+  }, [dispatch]);
 
   const logout = async () => {
     Swal.fire({
@@ -37,8 +42,11 @@ const Sidebar = () => {
         dispatchLogout(setLogout());
         navigate("/login");
         Swal.fire({
-          title: "You have been logged out!",
+          position: "center",
           icon: "success",
+          title: "You have been logged out",
+          showConfirmButton: false,
+          timer: 1500,
         });
       }
     });
@@ -86,26 +94,26 @@ const Sidebar = () => {
               <span>Categories</span>
             </li>
           </Link>
-          <p className="title">SERVICE</p>
+          {/* <p className="title">SERVICE</p>
           <li>
             <SettingsApplicationsIcon className="icon" />
             <span>Settings</span>
-          </li>
+          </li> */}
           <p className="title">USER</p>
-          <Link to="/">
+          <Link to="/profile/user/account">
             <li>
               <AccountCircleOutlinedIcon className="icon" />
               <span>Profile</span>
             </li>
           </Link>
           <Link onClick={logout}>
-          <li>
-            <ExitToAppIcon className="icon" />
-            <span>
-              Logout
-              {/* <button onClick={logout}>Logout</button> */}
-            </span>
-          </li>
+            <li>
+              <ExitToAppIcon className="icon" />
+              <span>
+                Logout
+                {/* <button onClick={logout}>Logout</button> */}
+              </span>
+            </li>
           </Link>
         </ul>
       </div>

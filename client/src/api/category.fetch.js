@@ -52,8 +52,11 @@ export const addCategory = (form) => {
         data: form
       })
       Swal.fire({
-        title: "Category Successfully Added!",
+        position: "center",
         icon: "success",
+        title: "Category successfully added",
+        showConfirmButton: false,
+        timer: 1500,
       });
 
       // console.log(response.data)
@@ -77,11 +80,14 @@ export const editCategory = (id, form) => {
         data: form
       })
       Swal.fire({
-        title: "Category Successfully Updated!",
+        position: "center",
         icon: "success",
+        title: "Category successfully updated",
+        showConfirmButton: false,
+        timer: 1500,
       });
 
-      // console.log(response.data)
+      console.log(response.data)
 
     } catch (error) {
       console.log(error)

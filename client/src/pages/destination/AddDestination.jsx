@@ -21,6 +21,7 @@ const AddDestination = () => {
   })
 
   const dispatch = useDispatch()
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -51,6 +52,7 @@ const AddDestination = () => {
     formData.append('price', form.price);
 
     dispatch(addDestination(formData))
+    navigate("/destinations");
 
     console.log(form.picture)
   };

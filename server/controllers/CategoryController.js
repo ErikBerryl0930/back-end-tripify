@@ -18,7 +18,7 @@ class CategoryController {
   static async getCategoryById(req, res) {
 
     try {
-      let listCategories = await category.findOne({
+      let categories = await category.findOne({
         where: {
           id: req.params.id
         },
