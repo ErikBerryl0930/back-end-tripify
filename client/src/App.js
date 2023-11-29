@@ -15,7 +15,7 @@ import {
   AddCategory,
   EditCategory,
   EditDestination,
-  Profile,
+  PRofile,
 } from "./pages";
 
 function App() {
@@ -45,7 +45,7 @@ function App() {
           </Route>
           <Route path="profile">
             <Route path="user">
-              <Route path="account" element={<Profile />} />
+              <Route path="account" element={<PRofile />} />
             </Route>
           </Route>
           <Route path="categories">
