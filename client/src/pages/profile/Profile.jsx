@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { changePWD } from "../../api/profile.fetch";
 
 const Profile = () => {
+
   const [data, setData] = useState("");
   const { isLogin } = useSelector((state) => state.auth);
   const { profiles } = useSelector((state) => state.profile);
