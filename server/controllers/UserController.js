@@ -212,6 +212,8 @@ class UserController {
 
             const { newPassword, confNewPassword } = req.body
 
+            console.log(newPassword)
+
             if (newPassword !== confNewPassword) return res.status(400).json({ message: 'new password and confirm new password is wrong' })
 
             const hashNewPWD = encryptPwd(newPassword)

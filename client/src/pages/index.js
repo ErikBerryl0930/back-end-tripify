@@ -10,7 +10,7 @@ import AddDestination from "./destination/AddDestination";
 import AddCategory from "./category/AddCategory";
 import EditCategory from "./category/EditCategory";
 import EditDestination from "./destination/EditDestination";
-import Profile from "./profile/Profile";
+import PRofile from "./profile/Profile";
 
 export {
   Home,
@@ -25,5 +25,5 @@ export {
   AddCategory,
   EditCategory,
   EditDestination,
-  Profile,
+  PRofile,
 };
