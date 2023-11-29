@@ -5,7 +5,6 @@ import Navbar from "../../components/navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getProfile } from "../../api/profile.fetch";
 
 const Profile = () => {
   const [data, setData] = useState("");
@@ -13,10 +12,6 @@ const Profile = () => {
   const { profiles } = useSelector((state) => state.profile);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getProfile());
-  }, [dispatch]);
 
   useEffect(() => {
     if (profiles != null) {
@@ -42,19 +37,19 @@ const Profile = () => {
             <h1 className="title">Profile</h1>
             <div className="item">
               <img
-                src={profiles.user.profile.profile_image}
+                src={profiles ? profiles.profile.profile_image : "https://i.pinimg.com/564x/d9/7b/bb/d97bbb08017ac2309307f0822e63d082.jpg"}
                 alt=""
                 className="profileImg"
               />
               <div className="details">
-                <h1 className="itemTitle">{profiles.user.username}</h1>
+                <h1 className="itemTitle">{profiles? profiles.username : "Loading"}</h1>
                 <div className="detailItem">
                   <span className="itemKey">Email:</span>
-                  <span className="itemValue">{profiles.user.email}</span>
+                  <span className="itemValue">{profiles? profiles.email: "Loading"}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Role:</span>
-                  <span className="itemValue">{profiles.user.role}</span>
+                  <span className="itemValue">{profiles? profiles.role: "Loading"}</span>
                 </div>
               </div>
             </div>
