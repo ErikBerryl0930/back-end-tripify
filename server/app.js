@@ -12,7 +12,7 @@ const doc = {
     title: "API DOC",
     description: "this is documentation of api",
   },
-  host: "localhost:3000",
+  host: "https://back-end-tripify.vercel.app",
 };
 
 app.use(cors());

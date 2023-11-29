@@ -8,11 +8,15 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/images/.*",
       "dest": "/app.js"
     },
     {
       "src": "/swagger/.*",
+      "dest": "/app.js"
+    },
+    {
+      "src": "/(.*)",
       "dest": "/app.js"
     }
   ],
