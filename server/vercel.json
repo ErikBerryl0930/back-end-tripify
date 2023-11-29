@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "app.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/app.js"
+    },
+    {
+      "src": "/swagger/.*",
+      "dest": "/app.js"
+    }
+  ],
+  "env": {
+    "POSTGRES_URL": "postgres://default:APcQL8KwJjM6@ep-polished-block-39046115-pooler.us-east-1.postgres.vercel-storage.com:5432/verceldb"
+  }
+}
