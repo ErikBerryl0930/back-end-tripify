@@ -55,9 +55,6 @@ function App() {
               <Route path=":id" element={<EditCategory />} />
             </Route>
           </Route>
-          <Route path="profile">
-            <Route index element={<Layout />} />
-          </Route>
         </Route>
       </Routes>
     </div>

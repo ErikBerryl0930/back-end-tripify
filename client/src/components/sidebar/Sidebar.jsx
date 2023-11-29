@@ -7,7 +7,7 @@ import StoreIcon from "@mui/icons-material/Store";
 // import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import {useEffect} from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "../../features/authSlice";
 import Swal from "sweetalert2";
 import { getProfile } from "../../api/profile.fetch";
+import { setProfile } from "../../features/profileSlice";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
@@ -23,10 +24,6 @@ const Sidebar = () => {
   const dispatchLogout = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
-
-  useEffect(() => {
-    dispatch(getProfile());
-  }, [dispatch]);
 
   const logout = async () => {
     Swal.fire({
@@ -40,6 +37,7 @@ const Sidebar = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         dispatchLogout(setLogout());
+        dispatch(setProfile(null));
         navigate("/login");
         Swal.fire({
           position: "center",

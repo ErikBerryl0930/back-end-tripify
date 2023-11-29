@@ -6,7 +6,7 @@ import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { getProfile } from "../../api/profile.fetch";
+
 
 const Navbar = () => {
   const { dispatch } = useContext(DarkModeContext);
@@ -14,17 +14,13 @@ const Navbar = () => {
   const { profiles } = useSelector((state) => state.profile);
   const udispatch = useDispatch();
 
-  useEffect(() => {
-    udispatch(getProfile());
-  }, [udispatch]);
-
-  useEffect(() => {
+  useEffect( () => {
     if (profiles != null) {
       setData(profiles);
     }
   }, [profiles]);
 
-  console.log(profiles);
+  console.log(data);
 
   return (
     <div className="navbar">
@@ -46,7 +42,10 @@ const Navbar = () => {
           </div>
           <div className="item">
             <img
-              src={profiles.user.profile.profile_image}
+              src={data ? 
+                data.profile.profile_image :
+                "https://i.pinimg.com/564x/d9/7b/bb/d97bbb08017ac2309307f0822e63d082.jpg"
+              }
               alt=""
               className="avatar"
             />

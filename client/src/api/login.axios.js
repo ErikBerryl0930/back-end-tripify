@@ -1,4 +1,5 @@
-import { setLogin, setLoading, setError, setAdmin } from "../features/authSlice"
+import { setLogin, setLoading, setError, setUser } from "../features/authSlice"
+import { setProfile } from "../features/profileSlice";
 
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -19,6 +20,9 @@ export const auth = (form) => {
             if (isAdmin === "admin") {
                 dispatch(setLogin(response.data.barier_token))
             }
+
+            dispatch(setProfile(response.data.user))
+            console.log(response.data.user)
 
             dispatch(setLoading(false))
         } catch (error) {

@@ -80,6 +80,9 @@ class UserController {
                     email: email
                 },
                 attributes: ['id', 'username', 'email', 'role', 'password'],
+                include: [{
+                    model: profile,                    
+                }]
 
             })
 
@@ -164,6 +167,7 @@ class UserController {
         try {
 
             const id = req.userData.id
+            console.log(id)
             let user = await users.findByPk(id, {
                 attributes: ['username', 'email', 'password', 'role'],
                 include: [
@@ -206,13 +210,12 @@ class UserController {
     static async changePassword(req, res) {
         try {
 
-            const { oldPassword, newPassword, confNewPassword } = req.body
-            const match = decryptPwd(oldPassword, req.userData.password)
-            if (!match) return res.status(400).json({ message: 'please type the right old password' })
+            const { newPassword, confNewPassword } = req.body
 
             if (newPassword !== confNewPassword) return res.status(400).json({ message: 'new password and confirm new password is wrong' })
 
             const hashNewPWD = encryptPwd(newPassword)
+            console.log(newPassword)
             await users.update({
                 password: hashNewPWD,
             }, {
@@ -221,7 +224,7 @@ class UserController {
                 }
             })
 
-            res.status(200).json({ success: true, message: 'password already changed' })
+            res.status(200).json({ success: true, message: 'password successfully changed' })
 
         } catch (e) {
             res.status(500).json({ message: e.message })
