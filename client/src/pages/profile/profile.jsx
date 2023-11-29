@@ -5,10 +5,9 @@ import Navbar from "../../components/navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { changePWD } from "../../api/profile.fetch";
+import { getProfile } from "../../api/profile.fetch";
 
 const Profile = () => {
-
   const [data, setData] = useState("");
   const { isLogin } = useSelector((state) => state.auth);
   const { profiles } = useSelector((state) => state.profile);
