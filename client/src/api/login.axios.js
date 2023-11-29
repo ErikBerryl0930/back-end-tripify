@@ -22,7 +22,7 @@ export const auth = (form) => {
             }
 
             dispatch(setProfile(response.data.user))
-            console.log(response.data.user)
+            console.log(response.data)
 
             dispatch(setLoading(false))
         } catch (error) {

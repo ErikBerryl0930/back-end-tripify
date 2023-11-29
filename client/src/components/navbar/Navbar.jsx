@@ -20,8 +20,6 @@ const Navbar = () => {
     }
   }, [profiles]);
 
-  console.log(data);
-
   return (
     <div className="navbar">
       <div className="wrapper">

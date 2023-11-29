@@ -40,6 +40,7 @@ export const changePWD = (form) => {
             dispatch(setLoading(false));
 
         }catch(error){
+            console.log(error)
             dispatch(setError(error.response.data.message));
         }
     }
